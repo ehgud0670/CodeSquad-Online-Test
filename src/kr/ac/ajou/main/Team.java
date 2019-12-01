@@ -19,6 +19,10 @@ class Team {
         return outNum;
     }
 
+    public void hits() {
+        hitsNum++;
+    }
+
     //about hitter
     int getStrikeNum() {
         return hitter.getStrikeNum();
@@ -42,6 +46,10 @@ class Team {
 
     public boolean isFourBall() {
         return hitter.ballNum == Constant.FOUR_BALL;
+    }
+
+    public void initHitter() {
+        hitter = new Hitter();
     }
 
     private static class Hitter {

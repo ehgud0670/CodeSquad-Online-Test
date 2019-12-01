@@ -61,7 +61,9 @@ class BaseballGame {
 
     private void processHits(Team team) {
         GameUtils.printMessage(Constant.STR_HITS);
-
+        team.hits();
+        GameUtils.printMessage(Constant.STR_NEXT_HITTER);
+        team.initHitter();
     }
 
     private void processOut(Team team) {
