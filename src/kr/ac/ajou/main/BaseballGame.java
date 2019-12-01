@@ -45,14 +45,20 @@ class BaseballGame {
 
     private void processStrike(Team team) {
         GameUtils.printMessage(Constant.STR_STRIKE);
+        team.strike();
+        if(team.isThreeStrike()){
+            processOut(team);
+        }
     }
 
     private void processBall(Team team) {
         GameUtils.printMessage(Constant.STR_BALL);
+
     }
 
     private void processHits(Team team) {
         GameUtils.printMessage(Constant.STR_HITS);
+
     }
 
     private void processOut(Team team) {

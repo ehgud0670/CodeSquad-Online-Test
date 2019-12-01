@@ -28,6 +28,14 @@ class Team {
         return hitter.getBallNum();
     }
 
+    public void strike() {
+        hitter.strikeNum++;
+    }
+
+    public boolean isThreeStrike() {
+        return this.hitter.strikeNum == Constant.THREE_STRIKE;
+    }
+
     private static class Hitter {
         private int strikeNum;
         private int ballNum;
