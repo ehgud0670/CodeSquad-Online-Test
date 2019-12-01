@@ -68,5 +68,10 @@ class BaseballGame {
 
     private void processOut(Team team) {
         GameUtils.printMessage(Constant.STR_OUT);
+        team.out();
+        if (!team.isThreeOut()) {
+            GameUtils.printMessage(Constant.STR_NEXT_HITTER);
+            team.initHitter();
+        }
     }
 }

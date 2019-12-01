@@ -23,6 +23,14 @@ class Team {
         hitsNum++;
     }
 
+    public void out() {
+        outNum++;
+    }
+
+    public boolean isThreeOut() {
+        return outNum == Constant.THREE_OUT;
+    }
+
     //about hitter
     int getStrikeNum() {
         return hitter.getStrikeNum();
