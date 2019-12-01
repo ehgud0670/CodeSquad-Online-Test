@@ -5,7 +5,6 @@ import kr.ac.ajou.main.util.GameUtils;
 import java.util.Random;
 
 class BaseballGame {
-
     void turnOn() {
         printGameStart();
 
@@ -14,12 +13,10 @@ class BaseballGame {
             if (team.isThreeOut()) {
                 break;
             }
-
             int randomNum = generateRandomNum();
             processByRandomNum(randomNum, team);
         }
         printGameOver(team);
-
     }
 
     private void printGameOver(Team team) {
