@@ -16,4 +16,5 @@ public class Constant {
     public static final String STR_HITS = "안타!";
     public static final String STR_OUT = "아웃!";
     public static final String STR_NEXT_HITTER = "다음 타자가 타석에 입장했습니다.";
+    public static final String STR_GAME_OVER = "GAME OVER";
 }

@@ -18,7 +18,13 @@ class BaseballGame {
             int randomNum = generateRandomNum();
             processByRandomNum(randomNum, team);
         }
+        printGameOver(team);
 
+    }
+
+    private void printGameOver(Team team) {
+        System.out.println("최종 안타수 : " + team.getHitsNum());
+        GameUtils.printMessage(Constant.STR_GAME_OVER);
     }
 
     private void printGameStart() {
