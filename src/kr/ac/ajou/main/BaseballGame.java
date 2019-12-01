@@ -29,19 +29,33 @@ class BaseballGame {
     private void processByRandomNum(int randomNum, Team team) {
         switch (randomNum) {
             case Constant.NUM_STRIKE:
-                GameUtils.printMessage(Constant.STR_STRIKE);
+                processStrike(team);
                 break;
             case Constant.NUM_BALL:
-                GameUtils.printMessage(Constant.STR_BALL);
+                processBall(team);
                 break;
             case Constant.NUM_HITS:
-                GameUtils.printMessage(Constant.STR_HITS);
+                processHits(team);
                 break;
             case Constant.NUM_OUT:
-                GameUtils.printMessage(Constant.STR_OUT);
+                processOut(team);
                 break;
         }
     }
 
+    private void processStrike(Team team) {
+        GameUtils.printMessage(Constant.STR_STRIKE);
+    }
 
+    private void processBall(Team team) {
+        GameUtils.printMessage(Constant.STR_BALL);
+    }
+
+    private void processHits(Team team) {
+        GameUtils.printMessage(Constant.STR_HITS);
+    }
+
+    private void processOut(Team team) {
+        GameUtils.printMessage(Constant.STR_OUT);
+    }
 }
