@@ -46,6 +46,7 @@ class BaseballGame {
 
     private void printCurSituation(Team team) {
         System.out.printf("%dS %dB %dO\n" , team.getStrikeNum(), team.getBallNum(), team.getOutNum());
+        System.out.println("현재 안타수 : " + team.getHitsNum());
     }
 
     private void processStrike(Team team) {
