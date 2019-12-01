@@ -41,6 +41,11 @@ class BaseballGame {
                 processOut(team);
                 break;
         }
+        printCurSituation(team);
+    }
+
+    private void printCurSituation(Team team) {
+        System.out.printf("%dS %dB %dO\n" , team.getStrikeNum(), team.getBallNum(), team.getOutNum());
     }
 
     private void processStrike(Team team) {
