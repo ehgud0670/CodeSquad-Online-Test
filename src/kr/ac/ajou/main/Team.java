@@ -33,7 +33,15 @@ class Team {
     }
 
     public boolean isThreeStrike() {
-        return this.hitter.strikeNum == Constant.THREE_STRIKE;
+        return hitter.strikeNum == Constant.THREE_STRIKE;
+    }
+
+    public void ball() {
+        hitter.ballNum++;
+    }
+
+    public boolean isFourBall() {
+        return hitter.ballNum == Constant.FOUR_BALL;
     }
 
     private static class Hitter {
