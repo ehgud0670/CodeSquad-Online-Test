@@ -9,9 +9,16 @@ class BaseballGame {
     void turnOn() {
         printGameStart();
 
-        int randomNum = generateRandomNum();
         Team team = new Team();
-        processByRandomNum(randomNum, team);
+        while (true) {
+            if (team.isThreeOut()) {
+                break;
+            }
+
+            int randomNum = generateRandomNum();
+            processByRandomNum(randomNum, team);
+        }
+
     }
 
     private void printGameStart() {
@@ -45,8 +52,9 @@ class BaseballGame {
     }
 
     private void printCurSituation(Team team) {
-        System.out.printf("%dS %dB %dO\n" , team.getStrikeNum(), team.getBallNum(), team.getOutNum());
+        System.out.printf("%dS %dB %dO\n", team.getStrikeNum(), team.getBallNum(), team.getOutNum());
         System.out.println("현재 안타수 : " + team.getHitsNum());
+        System.out.println();
     }
 
     private void processStrike(Team team) {
