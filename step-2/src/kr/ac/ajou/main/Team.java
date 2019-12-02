@@ -6,12 +6,16 @@ import java.util.List;
 class Team {
 
     private int teamNum;
+    private String teamOrder;
     private String teamName;
+
     private List<Hitter> hitters;
     private Pitcher pitcher;
 
-    Team(int teamNum) {
+    Team(int teamNum, String teamOrder) {
         this.teamNum = teamNum;
+        this.teamOrder = teamOrder;
+
         teamName = "";
         hitters = new ArrayList<>(Constant.NUM_HITTERS);
     }
@@ -22,6 +26,14 @@ class Team {
 
     public void setTeamNum(int teamNum) {
         this.teamNum = teamNum;
+    }
+
+    public String getTeamOrder() {
+        return teamOrder;
+    }
+
+    public void setTeamOrder(String teamOrder) {
+        this.teamOrder = teamOrder;
     }
 
     String getTeamName() {

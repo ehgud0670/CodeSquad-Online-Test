@@ -10,8 +10,8 @@ class BaseballGame {
 
     void turnOn() {
         GameUtils.printMessageLine(Constant.STR_GAME_OVERVIEW);
-        Team firstTeam = new Team(Constant.NUM_FIRST_TEAM);
-        Team secondTeam = new Team(Constant.NUM_SECOND_TEAM);
+        Team firstTeam = new Team(Constant.NUM_FIRST_TEAM, Constant.STR_TOP_ORDER);
+        Team secondTeam = new Team(Constant.NUM_SECOND_TEAM, Constant.STR_BOTTOM_ORDER);
 
         while (true) {
             printMenu();
@@ -178,10 +178,25 @@ class BaseballGame {
 
     private void processGameStartMenu(Team firstTeam, Team secondTeam) {
         printGameStart(firstTeam, secondTeam);
+        for (int i = 0; i < Constant.NUM_GAME_TIMES; i++) {
+            attack(firstTeam, i);
+            attack(secondTeam, i);
+        }
     }
 
-    private void printGameStart(Team firstTeam , Team secondTeam) {
+    private void printGameStart(Team firstTeam, Team secondTeam) {
         System.out.println(firstTeam.getTeamName() + " VS " +
                 secondTeam.getTeamName() + "의 시합을 시작합니다.");
     }
+
+    private void attack(Team team, int i) {
+        printTeamAttack(team, i);
+    }
+
+    private void printTeamAttack(Team team, int i) {
+        System.out.println(i + 1 + "회" + team.getTeamOrder() +
+                " " + team.getTeamName() +
+                " 공격");
+    }
+
 }
