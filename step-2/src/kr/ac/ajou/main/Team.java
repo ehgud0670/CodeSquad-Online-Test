@@ -11,6 +11,8 @@ class Team {
 
     private List<Hitter> hitters;
     private Pitcher pitcher;
+    private int outNum;
+    private int hitsNum;
 
     Team(int teamNum, String teamOrder) {
         this.teamNum = teamNum;
@@ -20,19 +22,19 @@ class Team {
         hitters = new ArrayList<>(Constant.NUM_HITTERS);
     }
 
-    public int getTeamNum() {
+    int getTeamNum() {
         return teamNum;
     }
 
-    public void setTeamNum(int teamNum) {
+    void setTeamNum(int teamNum) {
         this.teamNum = teamNum;
     }
 
-    public String getTeamOrder() {
+    String getTeamOrder() {
         return teamOrder;
     }
 
-    public void setTeamOrder(String teamOrder) {
+    void setTeamOrder(String teamOrder) {
         this.teamOrder = teamOrder;
     }
 
@@ -48,15 +50,19 @@ class Team {
         hitters.add(hitter);
     }
 
-    public void setPitcher(Pitcher pitcher) {
+    void setPitcher(Pitcher pitcher) {
         this.pitcher = pitcher;
     }
 
-    public List<Hitter> getHitters() {
+    List<Hitter> getHitters() {
         return hitters;
     }
 
-    public Pitcher getPitcher() {
+    Pitcher getPitcher() {
         return pitcher;
+    }
+
+    public boolean isThreeOut() {
+        return outNum == Constant.THREE_OUT;
     }
 }

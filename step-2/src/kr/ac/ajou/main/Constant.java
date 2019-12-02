@@ -11,6 +11,8 @@ class Constant {
     static final int NUM_HITTERS = 9;
     static final int NUM_GAME_TIMES = 6;
 
+    static final int THREE_OUT = 3;
+
     static final String STR_GAME_OVERVIEW = "신나는 야구시합";
     static final String STR_MENU_CHOICE = "메뉴선택 (1 - 4) ";
     static final String STR_TOP_ORDER = "초";

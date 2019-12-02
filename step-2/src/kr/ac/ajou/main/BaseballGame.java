@@ -191,6 +191,12 @@ class BaseballGame {
 
     private void attack(Team team, int i) {
         printTeamAttack(team, i);
+        while (true) {
+            if (team.isThreeOut()) {
+                break;
+            }
+            
+        }
     }
 
     private void printTeamAttack(Team team, int i) {

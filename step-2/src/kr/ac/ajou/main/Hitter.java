@@ -6,31 +6,60 @@ public class Hitter {
     private double battingAvr;
     private int hitterNum;
 
-    Hitter(int hitterNum){
+    private int strikeNum;
+    private int ballNum;
+
+    Hitter(int hitterNum) {
         this.hitterNum = hitterNum;
+        strikeNum = 0;
+        ballNum = 0;
     }
 
-    public int getHitterNum() {
+    int getHitterNum() {
         return hitterNum;
     }
 
-    public void setHitterNum(int hitterNum) {
+    void setHitterNum(int hitterNum) {
         this.hitterNum = hitterNum;
     }
 
-    public String getHitterName() {
+    String getHitterName() {
         return hitterName;
     }
 
-    public void setHitterName(String hitterName) {
+    void setHitterName(String hitterName) {
         this.hitterName = hitterName;
     }
 
-    public double getBattingAvr() {
+    double getBattingAvr() {
         return battingAvr;
     }
 
-    public void setBattingAvr(double battingAvr) {
+    void setBattingAvr(double battingAvr) {
         this.battingAvr = battingAvr;
+    }
+
+    int getStrikeNum() {
+        return strikeNum;
+    }
+
+    void setStrikeNum(int strikeNum) {
+        this.strikeNum = strikeNum;
+    }
+
+    int getBallNum() {
+        return ballNum;
+    }
+
+    void setBallNum(int ballNum) {
+        this.ballNum = ballNum;
+    }
+
+    void strike() {
+        strikeNum++;
+    }
+
+    void ball() {
+        ballNum++;
     }
 }
