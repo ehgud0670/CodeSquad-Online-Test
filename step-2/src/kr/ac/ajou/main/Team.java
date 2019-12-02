@@ -62,12 +62,28 @@ class Team {
         return pitcher;
     }
 
+    public int getOutNum() {
+        return outNum;
+    }
+
+    public void setOutNum(int outNum) {
+        this.outNum = outNum;
+    }
+
     void out(){
         outNum++;
     }
 
     boolean isThreeOut() {
         return outNum == Constant.THREE_OUT;
+    }
+
+    public int getHitsNum() {
+        return hitsNum;
+    }
+
+    public void setHitsNum(int hitsNum) {
+        this.hitsNum = hitsNum;
     }
 
     public void hits() {

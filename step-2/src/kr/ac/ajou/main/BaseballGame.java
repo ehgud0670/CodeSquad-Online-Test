@@ -213,6 +213,7 @@ class BaseballGame {
     private void attackByHitter(Team team, Hitter hitter) {
         Random random = new Random();
         double h = hitter.getBattingAvr();
+        System.out.println(hitter.getHitterNum() + "번 " + hitter.getHitterName());
         while (true) {
             if (hitter.isOut() || hitter.isHit()) {
                 hitter.initOutAndHit();
@@ -233,6 +234,7 @@ class BaseballGame {
             } else if (d <= percentBall) {
                 processBall(team,hitter);
             }
+            printCurSituation(team,hitter);
         }
     }
 
@@ -264,5 +266,11 @@ class BaseballGame {
         if(hitter.isFourBall()){
             processHits(team,hitter);
         }
+    }
+
+    private void printCurSituation(Team team, Hitter hitter) {
+        System.out.printf("%dS %dB %dO\n", hitter.getStrikeNum(), hitter.getBallNum(), team.getOutNum());
+        System.out.println(team.getTeamName() + "팀의 현재 안타수 : " + team.getHitsNum());
+        System.out.println();
     }
 }
