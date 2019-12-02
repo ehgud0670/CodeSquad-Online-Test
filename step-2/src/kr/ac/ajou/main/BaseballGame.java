@@ -90,6 +90,7 @@ class BaseballGame {
             Hitter hitter = new Hitter();
             inputHitterName(sc, i, hitter);
             inputHitterBattingAvr(sc,i,hitter);
+            firstTeam.addHitter(hitter);
         }
     }
 

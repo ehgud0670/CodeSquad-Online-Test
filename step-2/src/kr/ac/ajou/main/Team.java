@@ -6,9 +6,11 @@ import java.util.List;
 class Team {
 
     private String teamName;
+    private List<Hitter> hitters;
 
     Team() {
         teamName = "";
+        hitters = new ArrayList<>(Constant.NUM_HITTERS);
     }
 
     String getTeamName() {
@@ -19,4 +21,7 @@ class Team {
         this.teamName = teamName;
     }
 
+    void addHitter(Hitter hitter){
+        hitters.add(hitter);
+    }
 }
