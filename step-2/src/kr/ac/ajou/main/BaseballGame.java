@@ -7,19 +7,14 @@ import java.util.Scanner;
 
 class BaseballGame {
 
-    private Team firstTeam;
-    private Team secondTeam;
-
-    BaseballGame() {
-        firstTeam = new Team();
-        secondTeam = new Team();
-    }
-
     void turnOn() {
         GameUtils.printMessageLine(Constant.STR_GAME_START);
+        Team first = new Team(Constant.NUM_FIRST_TEAM);
+        Team second = new Team(Constant.NUM_SECOND_TEAM);
+
         printMenu();
         int menuNum = selectMenu();
-        processByMenu(menuNum);
+        processByMenu(menuNum, first, second);
     }
 
     private void printMenu() {
@@ -56,10 +51,10 @@ class BaseballGame {
         return menuNum;
     }
 
-    private void processByMenu(int menuNum) {
+    private void processByMenu(int menuNum, Team first , Team second) {
         switch (menuNum) {
             case Constant.MENU_INPUT:
-                processInputMenu();
+                processInputMenu(first, second);
                 break;
             case Constant.MENU_OUTPUT:
                 break;
@@ -68,40 +63,41 @@ class BaseballGame {
         }
     }
 
-    private void processInputMenu() {
-        inputFirstTeam();
+    private void processInputMenu(Team first, Team second) {
+        inputTeam(first);
+        inputTeam(second);
     }
 
-    private void inputFirstTeam() {
-        inputFirstTeamName();
-        inputFirstTeamHittersInfo();
-        inputFirstTeamPitcherInfo();
+    private void inputTeam(Team team) {
+        inputTeamName(team);
+        inputTeamHittersInfo(team);
+        inputTeamPitcherInfo(team);
     }
 
-    private void inputFirstTeamName() {
+    private void inputTeamName(Team team) {
         Scanner sc = new Scanner(System.in);
-        GameUtils.printMessageNoLine(Constant.STR_INPUT_TEAM_NAME_1);
-        String firstTeamName = sc.next();
-        firstTeam.setTeamName(firstTeamName);
+        System.out.printf("%d팀의 이름을 입력하세요> ", team.getTeamNum());
+        String teamName = sc.next();
+        team.setTeamName(teamName);
     }
 
-    private void inputFirstTeamHittersInfo() {
+    private void inputTeamHittersInfo(Team team) {
         Scanner sc = new Scanner(System.in);
         for (int i = 0; i < Constant.NUM_HITTERS; i++) {
             Hitter hitter = new Hitter();
             inputHitterName(sc, i, hitter);
             inputHitterBattingAvr(sc,i,hitter);
-            firstTeam.addHitter(hitter);
+            team.addHitter(hitter);
         }
     }
 
-    private void inputFirstTeamPitcherInfo() {
+    private void inputTeamPitcherInfo(Team team) {
         Scanner sc = new Scanner(System.in);
         Pitcher pitcher = new Pitcher();
         GameUtils.printMessageNoLine("투수 정보 입력> ");
         String pitcherName = sc.next();
         pitcher.setName(pitcherName);
-        firstTeam.setPitcher(pitcher);
+        team.setPitcher(pitcher);
     }
 
     private void inputHitterName(Scanner sc, int i, Hitter hitter) {

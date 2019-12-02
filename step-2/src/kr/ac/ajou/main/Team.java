@@ -5,13 +5,23 @@ import java.util.List;
 
 class Team {
 
+    private int teamNum;
     private String teamName;
     private List<Hitter> hitters;
     private Pitcher pitcher;
 
-    Team() {
+    Team(int teamNum) {
+        this.teamNum = teamNum;
         teamName = "";
         hitters = new ArrayList<>(Constant.NUM_HITTERS);
+    }
+
+    public int getTeamNum() {
+        return teamNum;
+    }
+
+    public void setTeamNum(int teamNum) {
+        this.teamNum = teamNum;
     }
 
     String getTeamName() {
@@ -22,7 +32,7 @@ class Team {
         this.teamName = teamName;
     }
 
-    void addHitter(Hitter hitter){
+    void addHitter(Hitter hitter) {
         hitters.add(hitter);
     }
 
