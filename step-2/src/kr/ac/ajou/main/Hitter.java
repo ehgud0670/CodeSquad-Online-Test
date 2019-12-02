@@ -8,6 +8,8 @@ public class Hitter {
 
     private int strikeNum;
     private int ballNum;
+    private boolean isOut;
+    private boolean isHit;
 
     Hitter(int hitterNum) {
         this.hitterNum = hitterNum;
@@ -47,6 +49,14 @@ public class Hitter {
         this.strikeNum = strikeNum;
     }
 
+    boolean isThreeStrike() {
+        return strikeNum == Constant.THREE_STRIKE;
+    }
+
+    void strike() {
+        strikeNum++;
+    }
+
     int getBallNum() {
         return ballNum;
     }
@@ -55,11 +65,37 @@ public class Hitter {
         this.ballNum = ballNum;
     }
 
-    void strike() {
-        strikeNum++;
-    }
-
     void ball() {
         ballNum++;
+    }
+
+    boolean isFourBall() {
+        return ballNum == Constant.FOUR_BALL;
+    }
+
+    void initStrikeAndBall() {
+        strikeNum = 0;
+        ballNum = 0;
+    }
+
+    void initOutAndHit() {
+        isOut = false;
+        isHit = false;
+    }
+
+    boolean isOut() {
+        return isOut;
+    }
+
+    void setOut(boolean out) {
+        isOut = out;
+    }
+
+    boolean isHit() {
+        return isHit;
+    }
+
+    void setHit(boolean hit) {
+        isHit = hit;
     }
 }

@@ -62,7 +62,19 @@ class Team {
         return pitcher;
     }
 
-    public boolean isThreeOut() {
+    void out(){
+        outNum++;
+    }
+
+    boolean isThreeOut() {
         return outNum == Constant.THREE_OUT;
+    }
+
+    public void hits() {
+        hitsNum++;
+    }
+
+    public void initOutNum() {
+        outNum =0;
     }
 }

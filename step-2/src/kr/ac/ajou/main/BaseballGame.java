@@ -195,10 +195,11 @@ class BaseballGame {
         int hitterNum = 0;
         while (true) {
             if (team.isThreeOut()) {
+                team.initOutNum();
                 break;
             }
             Hitter curHitter = hitters.get(hitterNum);
-            attackByHitter(curHitter);
+            attackByHitter(team, curHitter);
             hitterNum = (hitterNum + 1) % Constant.NUM_HITTERS;
         }
     }
@@ -209,37 +210,59 @@ class BaseballGame {
                 " 공격");
     }
 
-    private void attackByHitter(Hitter curHitter) {
+    private void attackByHitter(Team team, Hitter hitter) {
         Random random = new Random();
-        double d = random.nextDouble();
-        double h = curHitter.getBattingAvr();
+        double h = hitter.getBattingAvr();
+        while (true) {
+            if (hitter.isOut() || hitter.isHit()) {
+                hitter.initOutAndHit();
+                break;
+            }
 
-        double percentOut = 0.1;
-        double percentHits = h + percentOut;
-        double percentStrike = (1 - h) / 2.0 - 0.05 + percentHits;
-        double percentBall = (1 - h) / 2.0 - 0.05 + percentStrike;
-
-        if (d <= percentOut) { //out
-            processOut();
-        } else if (d <= percentHits) { //hits
-            processHits();
-        } else if (d <= percentStrike) { // strike
-            processStrike();
-        } else if (d <= percentBall) { // ball defacto 1.
-            processBall();
+            double d = random.nextDouble();
+            double percentOut = 0.1;
+            double percentHits = h + percentOut;
+            double percentStrike = (1 - h) / 2.0 - 0.05 + percentHits;
+            double percentBall = (1 - h) / 2.0 - 0.05 + percentStrike;
+            if (d <= percentOut) {
+                processOut(team, hitter);
+            } else if (d <= percentHits) {
+                processHits(team, hitter);
+            } else if (d <= percentStrike) {
+                processStrike(team,hitter);
+            } else if (d <= percentBall) {
+                processBall(team,hitter);
+            }
         }
     }
-    
-    private void processOut() {
 
+    private void processOut(Team team, Hitter hitter) {
+        GameUtils.printMessageLine(Constant.STR_OUT);
+        team.out();
+        hitter.setOut(true);
+        hitter.initStrikeAndBall();
     }
 
-    private void processHits() {
+    private void processHits(Team team, Hitter hitter) {
+        GameUtils.printMessageLine(Constant.STR_HITS);
+        team.hits();
+        hitter.setHit(true);
+        hitter.initStrikeAndBall();
     }
 
-    private void processStrike() {
+    private void processStrike(Team team, Hitter hitter) {
+        GameUtils.printMessageLine(Constant.STR_STRIKE);
+        hitter.strike();
+        if(hitter.isThreeStrike()){
+            processOut(team,hitter);
+        }
     }
 
-    private void processBall() {
+    private void processBall(Team team, Hitter hitter) {
+        GameUtils.printMessageLine(Constant.STR_BALL);
+        hitter.ball();
+        if(hitter.isFourBall()){
+            processHits(team,hitter);
+        }
     }
 }
