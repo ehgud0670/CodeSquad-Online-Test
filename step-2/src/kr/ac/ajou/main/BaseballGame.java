@@ -181,6 +181,26 @@ class BaseballGame {
             attack(firstTeam, i);
             attack(secondTeam, i);
         }
+        printGameResult(firstTeam, secondTeam);
+    }
+
+    private void printGameResult(Team firstTeam, Team secondTeam) {
+        String firstTeamName = firstTeam.getTeamName();
+        String secondTeamName= secondTeam.getTeamName();
+
+        System.out.println(firstTeamName + " VS " + secondTeamName);
+        int firstTeamHits = firstTeam.getHitsNum();
+        int secondTeamHits = secondTeam.getHitsNum();
+        System.out.println(firstTeamHits + " : " + secondTeamHits);
+        if(firstTeamHits > secondTeamHits){
+            System.out.println(firstTeamName + "  승!");
+        } else if (secondTeamHits > firstTeamHits){
+            System.out.println(secondTeamName + " 승!");
+        } else {
+            System.out.println("무승부");
+        }
+        GameUtils.printMessageLine(Constant.STR_GAME_OVER);
+        System.out.println();
     }
 
     private void printGameStart(Team firstTeam, Team secondTeam) {
@@ -230,11 +250,11 @@ class BaseballGame {
             } else if (d <= percentHits) {
                 processHits(team, hitter);
             } else if (d <= percentStrike) {
-                processStrike(team,hitter);
+                processStrike(team, hitter);
             } else if (d <= percentBall) {
-                processBall(team,hitter);
+                processBall(team, hitter);
             }
-            printCurSituation(team,hitter);
+            printCurSituation(team, hitter);
         }
     }
 
@@ -255,16 +275,16 @@ class BaseballGame {
     private void processStrike(Team team, Hitter hitter) {
         GameUtils.printMessageLine(Constant.STR_STRIKE);
         hitter.strike();
-        if(hitter.isThreeStrike()){
-            processOut(team,hitter);
+        if (hitter.isThreeStrike()) {
+            processOut(team, hitter);
         }
     }
 
     private void processBall(Team team, Hitter hitter) {
         GameUtils.printMessageLine(Constant.STR_BALL);
         hitter.ball();
-        if(hitter.isFourBall()){
-            processHits(team,hitter);
+        if (hitter.isFourBall()) {
+            processHits(team, hitter);
         }
     }
 
