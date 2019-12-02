@@ -9,7 +9,7 @@ import java.util.Scanner;
 class BaseballGame {
 
     void turnOn() {
-        GameUtils.printMessageLine(Constant.STR_GAME_START);
+        GameUtils.printMessageLine(Constant.STR_GAME_OVERVIEW);
         Team firstTeam = new Team(Constant.NUM_FIRST_TEAM);
         Team secondTeam = new Team(Constant.NUM_SECOND_TEAM);
 
@@ -69,6 +69,7 @@ class BaseballGame {
                 processOutputMenu(firstTeam, secondTeam);
                 break;
             case Constant.MENU_GAME_START:
+                processGameStartMenu(firstTeam, secondTeam);
                 break;
         }
     }
@@ -171,6 +172,15 @@ class BaseballGame {
 
     private void printTeamPitcherInfo(Team team) {
         Pitcher pitcher = team.getPitcher();
-        System.out.println("투수 : " +  pitcher.getName());
+        System.out.println("투수 : " + pitcher.getName());
+    }
+
+    private void processGameStartMenu(Team firstTeam, Team secondTeam) {
+        String firstTeamName = firstTeam.getTeamName();
+        String secondTeamName = secondTeam.getTeamName();
+        if ("".equals(firstTeamName) && "".equals(secondTeamName)) {
+            System.out.println("데이터 입력부터 해주세요.");
+        } else {
+        }
     }
 }
