@@ -4,15 +4,14 @@ import kr.ac.ajou.main.util.GameUtils;
 
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 class BaseballGame {
-
     void turnOn() {
         GameUtils.printMessageLine(Constant.STR_GAME_OVERVIEW);
         Team firstTeam = new Team(Constant.NUM_FIRST_TEAM, Constant.STR_TOP_ORDER);
         Team secondTeam = new Team(Constant.NUM_SECOND_TEAM, Constant.STR_BOTTOM_ORDER);
-
         while (true) {
             printMenu();
             int menuNum = selectMenu();
@@ -211,6 +210,36 @@ class BaseballGame {
     }
 
     private void attackByHitter(Hitter curHitter) {
+        Random random = new Random();
+        double d = random.nextDouble();
+        double h = curHitter.getBattingAvr();
 
+        double percentOut = 0.1;
+        double percentHits = h + percentOut;
+        double percentStrike = (1 - h) / 2.0 - 0.05 + percentHits;
+        double percentBall = (1 - h) / 2.0 - 0.05 + percentStrike;
+
+        if (d <= percentOut) { //out
+            processOut();
+        } else if (d <= percentHits) { //hits
+            processHits();
+        } else if (d <= percentStrike) { // strike
+            processStrike();
+        } else if (d <= percentBall) { // ball defacto 1.
+            processBall();
+        }
+    }
+    
+    private void processOut() {
+
+    }
+
+    private void processHits() {
+    }
+
+    private void processStrike() {
+    }
+
+    private void processBall() {
     }
 }
