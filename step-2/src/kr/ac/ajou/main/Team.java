@@ -43,4 +43,8 @@ class Team {
     public List<Hitter> getHitters() {
         return hitters;
     }
+
+    public Pitcher getPitcher() {
+        return pitcher;
+    }
 }

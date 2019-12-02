@@ -151,6 +151,7 @@ class BaseballGame {
     private void printTeamInfo(Team team) {
         printTeamName(team);
         printTeamHittersInfo(team);
+        printTeamPitcherInfo(team);
     }
 
     private void printTeamName(Team team) {
@@ -166,5 +167,10 @@ class BaseballGame {
                     curHitter.getHitterName(),
                     curHitter.getBattingAvr());
         }
+    }
+
+    private void printTeamPitcherInfo(Team team) {
+        Pitcher pitcher = team.getPitcher();
+        System.out.println("투수 : " +  pitcher.getName());
     }
 }
