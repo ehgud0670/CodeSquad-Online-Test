@@ -39,4 +39,8 @@ class Team {
     public void setPitcher(Pitcher pitcher) {
         this.pitcher = pitcher;
     }
+
+    public List<Hitter> getHitters() {
+        return hitters;
+    }
 }

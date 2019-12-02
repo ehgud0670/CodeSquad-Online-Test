@@ -3,6 +3,7 @@ package kr.ac.ajou.main;
 import kr.ac.ajou.main.util.GameUtils;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 class BaseballGame {
@@ -93,7 +94,7 @@ class BaseballGame {
     private void inputTeamHittersInfo(Team team) {
         Scanner sc = new Scanner(System.in);
         for (int i = 0; i < Constant.NUM_HITTERS; i++) {
-            Hitter hitter = new Hitter();
+            Hitter hitter = new Hitter(i+1);
             inputHitterName(sc, i, hitter);
             inputHitterBattingAvr(sc, i, hitter);
             team.addHitter(hitter);
@@ -142,9 +143,21 @@ class BaseballGame {
 
     private void printTeamInfo(Team team) {
         printTeamName(team);
+        printTeamHittersInfo(team);
     }
 
     private void printTeamName(Team team) {
         System.out.println(team.getTeamName() + " 팀 정보");
+    }
+
+    private void printTeamHittersInfo(Team team) {
+        List<Hitter> hitters = team.getHitters();
+        for(int i=0; i<Constant.NUM_HITTERS;i++){
+            Hitter curHitter = hitters.get(i);
+            System.out.printf("%d번 %s, %f\n",
+                    curHitter.getHitterNum(),
+                    curHitter.getHitterName(),
+                    curHitter.getBattingAvr());
+        }
     }
 }
