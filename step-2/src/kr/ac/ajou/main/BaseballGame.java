@@ -191,11 +191,16 @@ class BaseballGame {
 
     private void attack(Team team, int i) {
         printTeamAttack(team, i);
+
+        List<Hitter> hitters = team.getHitters();
+        int hitterNum = 0;
         while (true) {
             if (team.isThreeOut()) {
                 break;
             }
-            
+            Hitter curHitter = hitters.get(hitterNum);
+            attackByHitter(curHitter);
+            hitterNum = (hitterNum + 1) % Constant.NUM_HITTERS;
         }
     }
 
@@ -205,4 +210,7 @@ class BaseballGame {
                 " 공격");
     }
 
+    private void attackByHitter(Hitter curHitter) {
+
+    }
 }
