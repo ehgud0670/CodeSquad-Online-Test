@@ -11,9 +11,20 @@ class BaseballGame {
         int menuNum = selectMenu();
     }
 
+    private void printGameStart() {
+        System.out.println("신나는 야구시합");
+    }
+
     private void printMenu() {
         printMenuOption();
-        printMenuChoice();
+        GameUtils.printMessage(Constant.STR_MENU_CHOICE);
+    }
+
+    private void printMenuOption() {
+        System.out.println("1. 데이터 입력");
+        System.out.println("2. 데이터 출력");
+        System.out.println("3. 시합 시작");
+        System.out.println();
     }
 
     private int selectMenu() {
@@ -30,20 +41,5 @@ class BaseballGame {
             break;
         }
         return menuNum;
-    }
-
-    private void printMenuChoice() {
-        System.out.print("메뉴선택 (1 - 3) ");
-    }
-
-    private void printMenuOption() {
-        System.out.println("1. 데이터 입력");
-        System.out.println("2. 데이터 출력");
-        System.out.println("3. 시합 시작");
-        System.out.println();
-    }
-
-    private void printGameStart() {
-        System.out.println("신나는 야구시합");
     }
 }
