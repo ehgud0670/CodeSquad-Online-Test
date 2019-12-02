@@ -41,7 +41,7 @@ class BaseballGame {
                     GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
                     continue;
                 }
-            } catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
                 sc = new Scanner(System.in);
                 continue;
@@ -51,7 +51,7 @@ class BaseballGame {
         return menuNum;
     }
 
-    private void processByMenu(int menuNum, Team first , Team second) {
+    private void processByMenu(int menuNum, Team first, Team second) {
         switch (menuNum) {
             case Constant.MENU_INPUT:
                 processInputMenu(first, second);
@@ -86,9 +86,29 @@ class BaseballGame {
         for (int i = 0; i < Constant.NUM_HITTERS; i++) {
             Hitter hitter = new Hitter();
             inputHitterName(sc, i, hitter);
-            inputHitterBattingAvr(sc,i,hitter);
+            inputHitterBattingAvr(sc, i, hitter);
             team.addHitter(hitter);
         }
+    }
+
+    private void inputHitterBattingAvr(Scanner sc, int i, Hitter hitter) {
+        System.out.printf("%d번 타자 타율 입력> ", i + 1);
+        double battingAvr;
+        while (true) {
+            battingAvr = sc.nextDouble();
+            if (battingAvr <= 0.1 || battingAvr >= 0.5) {
+                System.out.println("다시 입력해주세요. 타율 h는 0.1 < h < 0.5");
+                continue;
+            }
+            break;
+        }
+        hitter.setBattingAvr(battingAvr);
+    }
+
+    private void inputHitterName(Scanner sc, int i, Hitter hitter) {
+        System.out.printf("%d번 타자 이름 입력> ", i + 1);
+        String hitterName = sc.next();
+        hitter.setHitterName(hitterName);
     }
 
     private void inputTeamPitcherInfo(Team team) {
@@ -98,17 +118,5 @@ class BaseballGame {
         String pitcherName = sc.next();
         pitcher.setName(pitcherName);
         team.setPitcher(pitcher);
-    }
-
-    private void inputHitterName(Scanner sc, int i, Hitter hitter) {
-        System.out.printf("%d번 타자 이름 입력> ", i + 1);
-        String hitterName = sc.next();
-        hitter.setHitterName(hitterName);
-    }
-
-    private void inputHitterBattingAvr(Scanner sc, int i, Hitter hitter) {
-        System.out.printf("%d번 타자 타율 입력> ", i + 1);
-        double battingAvr = sc.nextDouble();
-        hitter.setBattingAvr(battingAvr);
     }
 }
