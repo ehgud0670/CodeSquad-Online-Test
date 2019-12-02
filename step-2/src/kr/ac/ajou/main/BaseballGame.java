@@ -92,22 +92,23 @@ class BaseballGame {
     }
 
     private void inputTeamHittersInfo(Team team) {
-        Scanner sc = new Scanner(System.in);
         for (int i = 0; i < Constant.NUM_HITTERS; i++) {
             Hitter hitter = new Hitter(i + 1);
-            inputHitterName(sc, i, hitter);
-            inputHitterBattingAvr(sc, i, hitter);
+            inputHitterName(i, hitter);
+            inputHitterBattingAvr(i, hitter);
             team.addHitter(hitter);
         }
     }
 
-    private void inputHitterName(Scanner sc, int i, Hitter hitter) {
+    private void inputHitterName(int i, Hitter hitter) {
+        Scanner sc = new Scanner(System.in);
         System.out.printf("%d번 타자 이름 입력> ", i + 1);
         String hitterName = sc.next();
         hitter.setHitterName(hitterName);
     }
 
-    private void inputHitterBattingAvr(Scanner sc, int i, Hitter hitter) {
+    private void inputHitterBattingAvr(int i, Hitter hitter) {
+        Scanner sc = new Scanner(System.in);
         System.out.printf("%d번 타자 타율 입력> ", i + 1);
         double battingAvr;
         while (true) {
