@@ -9,12 +9,19 @@ class BaseballGame {
 
     void turnOn() {
         GameUtils.printMessageLine(Constant.STR_GAME_START);
-        Team first = new Team(Constant.NUM_FIRST_TEAM);
-        Team second = new Team(Constant.NUM_SECOND_TEAM);
+        Team firstTeam = new Team(Constant.NUM_FIRST_TEAM);
+        Team secondTeam = new Team(Constant.NUM_SECOND_TEAM);
 
         printMenu();
         int menuNum = selectMenu();
-        processByMenu(menuNum, first, second);
+        while(true) {
+            if(menuNum == Constant.MENU_GAME_EXIT){
+                break;
+            }
+            processByMenu(menuNum, firstTeam, secondTeam);
+            menuNum = selectMenu();
+        }
+        GameUtils.printMessageLine(Constant.STR_GAME_EXIT);
     }
 
     private void printMenu() {
@@ -26,6 +33,7 @@ class BaseballGame {
         System.out.println("1. 데이터 입력");
         System.out.println("2. 데이터 출력");
         System.out.println("3. 시합 시작");
+        System.out.println("4. 게임 나가기");
         System.out.println();
     }
 
@@ -37,7 +45,8 @@ class BaseballGame {
                 menuNum = sc.nextInt();
                 if (menuNum != Constant.MENU_INPUT &&
                         menuNum != Constant.MENU_OUTPUT &&
-                        menuNum != Constant.MENU_GAME_START) {
+                        menuNum != Constant.MENU_GAME_START &&
+                        menuNum != Constant.MENU_GAME_EXIT) {
                     GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
                     continue;
                 }
@@ -51,10 +60,10 @@ class BaseballGame {
         return menuNum;
     }
 
-    private void processByMenu(int menuNum, Team first, Team second) {
+    private void processByMenu(int menuNum, Team firstTeam, Team secondTeam) {
         switch (menuNum) {
             case Constant.MENU_INPUT:
-                processInputMenu(first, second);
+                processInputMenu(firstTeam, secondTeam);
                 break;
             case Constant.MENU_OUTPUT:
                 break;
@@ -63,9 +72,9 @@ class BaseballGame {
         }
     }
 
-    private void processInputMenu(Team first, Team second) {
-        inputTeam(first);
-        inputTeam(second);
+    private void processInputMenu(Team firstTeam, Team secondTeam) {
+        inputTeam(firstTeam);
+        inputTeam(secondTeam);
     }
 
     private void inputTeam(Team team) {
@@ -91,6 +100,12 @@ class BaseballGame {
         }
     }
 
+    private void inputHitterName(Scanner sc, int i, Hitter hitter) {
+        System.out.printf("%d번 타자 이름 입력> ", i + 1);
+        String hitterName = sc.next();
+        hitter.setHitterName(hitterName);
+    }
+
     private void inputHitterBattingAvr(Scanner sc, int i, Hitter hitter) {
         System.out.printf("%d번 타자 타율 입력> ", i + 1);
         double battingAvr;
@@ -103,12 +118,6 @@ class BaseballGame {
             break;
         }
         hitter.setBattingAvr(battingAvr);
-    }
-
-    private void inputHitterName(Scanner sc, int i, Hitter hitter) {
-        System.out.printf("%d번 타자 이름 입력> ", i + 1);
-        String hitterName = sc.next();
-        hitter.setHitterName(hitterName);
     }
 
     private void inputTeamPitcherInfo(Team team) {
