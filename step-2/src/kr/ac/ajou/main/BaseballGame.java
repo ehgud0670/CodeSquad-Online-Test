@@ -1,14 +1,32 @@
 package kr.ac.ajou.main;
 
+import java.util.Scanner;
+
 class BaseballGame {
     void turnOn() {
         printGameStart();
         printMenu();
+        int menuNum = selectMenu();
     }
 
     private void printMenu() {
         printMenuOption();
         printMenuChoice();
+    }
+
+    private int selectMenu() {
+        Scanner sc = new Scanner(System.in);
+        int menuNum;
+        while (true) {
+            menuNum = sc.nextInt();
+            if (menuNum != Constant.MENU_INPUT &&
+                    menuNum != Constant.MENU_OUTPUT &&
+                    menuNum != Constant.MENU_GAME_START) {
+                continue;
+            }
+            break;
+        }
+        return menuNum;
     }
 
     private void printMenuChoice() {
