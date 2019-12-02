@@ -68,12 +68,22 @@ class BaseballGame {
     private void inputFirstTeam() {
         Scanner sc = new Scanner(System.in);
         inputFirstTeamName(sc);
+        inputHittersInfo(sc);
     }
 
     private void inputFirstTeamName(Scanner sc) {
         GameUtils.printMessageNoLine(Constant.STR_INPUT_TEAM_NAME_1);
         String firstTeamName = sc.nextLine();
         firstTeam.setTeamName(firstTeamName);
+    }
+
+    private void inputHittersInfo(Scanner sc) {
+        for (int i = 0; i < Constant.NUM_HITTERS; i++) {
+            Hitter hitter = new Hitter();
+            System.out.printf("%d번 타자 이름 입력> ", i + 1);
+            String hitterName = sc.nextLine();
+            hitter.setHitterName(hitterName);
+        }
     }
 
 }
