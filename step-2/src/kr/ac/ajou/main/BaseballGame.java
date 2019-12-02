@@ -2,6 +2,7 @@ package kr.ac.ajou.main;
 
 import kr.ac.ajou.main.util.GameUtils;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class BaseballGame {
@@ -37,11 +38,17 @@ class BaseballGame {
         Scanner sc = new Scanner(System.in);
         int menuNum;
         while (true) {
-            menuNum = sc.nextInt();
-            if (menuNum != Constant.MENU_INPUT &&
-                    menuNum != Constant.MENU_OUTPUT &&
-                    menuNum != Constant.MENU_GAME_START) {
+            try {
+                menuNum = sc.nextInt();
+                if (menuNum != Constant.MENU_INPUT &&
+                        menuNum != Constant.MENU_OUTPUT &&
+                        menuNum != Constant.MENU_GAME_START) {
+                    GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
+                    continue;
+                }
+            } catch(InputMismatchException e){
                 GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
+                sc = new Scanner(System.in);
                 continue;
             }
             break;
