@@ -1,5 +1,7 @@
 package kr.ac.ajou.main;
 
+import kr.ac.ajou.main.util.GameUtils;
+
 import java.util.Scanner;
 
 class BaseballGame {
@@ -22,6 +24,7 @@ class BaseballGame {
             if (menuNum != Constant.MENU_INPUT &&
                     menuNum != Constant.MENU_OUTPUT &&
                     menuNum != Constant.MENU_GAME_START) {
+                GameUtils.printMessage(Constant.STR_REINPUT_MENU);
                 continue;
             }
             break;
