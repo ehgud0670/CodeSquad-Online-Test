@@ -12,14 +12,13 @@ class BaseballGame {
         Team firstTeam = new Team(Constant.NUM_FIRST_TEAM);
         Team secondTeam = new Team(Constant.NUM_SECOND_TEAM);
 
-        printMenu();
-        int menuNum = selectMenu();
-        while(true) {
-            if(menuNum == Constant.MENU_GAME_EXIT){
+        while (true) {
+            printMenu();
+            int menuNum = selectMenu();
+            if (menuNum == Constant.MENU_GAME_EXIT) {
                 break;
             }
             processByMenu(menuNum, firstTeam, secondTeam);
-            menuNum = selectMenu();
         }
         GameUtils.printMessageLine(Constant.STR_GAME_EXIT);
     }
@@ -66,7 +65,7 @@ class BaseballGame {
                 processInputMenu(firstTeam, secondTeam);
                 break;
             case Constant.MENU_OUTPUT:
-                processOutputMenu(firstTeam,secondTeam);
+                processOutputMenu(firstTeam, secondTeam);
                 break;
             case Constant.MENU_GAME_START:
                 break;
@@ -131,12 +130,21 @@ class BaseballGame {
     }
 
     private void processOutputMenu(Team firstTeam, Team secondTeam) {
-        String firstTeamName= firstTeam.getTeamName();
+        String firstTeamName = firstTeam.getTeamName();
         String secondTeamName = secondTeam.getTeamName();
-        if("".equals(firstTeamName) && "".equals(secondTeamName)){
+        if ("".equals(firstTeamName) && "".equals(secondTeamName)) {
             System.out.println("데이터 입력부터 해주세요.");
         } else {
-
+            printTeamInfo(firstTeam);
+            printTeamInfo(secondTeam);
         }
+    }
+
+    private void printTeamInfo(Team team) {
+        printTeamName(team);
+    }
+
+    private void printTeamName(Team team) {
+        System.out.println(team.getTeamName() + " 팀 정보");
     }
 }
