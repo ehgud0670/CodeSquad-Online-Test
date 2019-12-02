@@ -177,5 +177,11 @@ class BaseballGame {
     }
 
     private void processGameStartMenu(Team firstTeam, Team secondTeam) {
+        printGameStart(firstTeam, secondTeam);
+    }
+
+    private void printGameStart(Team firstTeam , Team secondTeam) {
+        System.out.println(firstTeam.getTeamName() + " VS " +
+                secondTeam.getTeamName() + "의 시합을 시작합니다.");
     }
 }
