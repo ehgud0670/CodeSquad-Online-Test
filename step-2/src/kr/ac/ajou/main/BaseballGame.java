@@ -61,16 +61,23 @@ class BaseballGame {
     }
 
     private void processByMenu(int menuNum, Team firstTeam, Team secondTeam) {
-        switch (menuNum) {
-            case Constant.MENU_INPUT:
-                processInputMenu(firstTeam, secondTeam);
-                break;
-            case Constant.MENU_OUTPUT:
-                processOutputMenu(firstTeam, secondTeam);
-                break;
-            case Constant.MENU_GAME_START:
-                processGameStartMenu(firstTeam, secondTeam);
-                break;
+        if (menuNum == Constant.MENU_INPUT) {
+            processInputMenu(firstTeam, secondTeam);
+        } else {
+            String firstTeamName = firstTeam.getTeamName();
+            String secondTeamName = secondTeam.getTeamName();
+            if ("".equals(firstTeamName) && "".equals(secondTeamName)) {
+                System.out.println("데이터 입력부터 해주세요.");
+            } else {
+                switch (menuNum) {
+                    case Constant.MENU_OUTPUT:
+                        processOutputMenu(firstTeam, secondTeam);
+                        break;
+                    case Constant.MENU_GAME_START:
+                        processGameStartMenu(firstTeam, secondTeam);
+                        break;
+                }
+            }
         }
     }
 
@@ -139,14 +146,8 @@ class BaseballGame {
     }
 
     private void processOutputMenu(Team firstTeam, Team secondTeam) {
-        String firstTeamName = firstTeam.getTeamName();
-        String secondTeamName = secondTeam.getTeamName();
-        if ("".equals(firstTeamName) && "".equals(secondTeamName)) {
-            System.out.println("데이터 입력부터 해주세요.");
-        } else {
-            printTeamInfo(firstTeam);
-            printTeamInfo(secondTeam);
-        }
+        printTeamInfo(firstTeam);
+        printTeamInfo(secondTeam);
     }
 
     private void printTeamInfo(Team team) {
@@ -176,11 +177,5 @@ class BaseballGame {
     }
 
     private void processGameStartMenu(Team firstTeam, Team secondTeam) {
-        String firstTeamName = firstTeam.getTeamName();
-        String secondTeamName = secondTeam.getTeamName();
-        if ("".equals(firstTeamName) && "".equals(secondTeamName)) {
-            System.out.println("데이터 입력부터 해주세요.");
-        } else {
-        }
     }
 }
