@@ -7,6 +7,7 @@ class Team {
 
     private String teamName;
     private List<Hitter> hitters;
+    private Pitcher pitcher;
 
     Team() {
         teamName = "";
@@ -23,5 +24,9 @@ class Team {
 
     void addHitter(Hitter hitter){
         hitters.add(hitter);
+    }
+
+    public void setPitcher(Pitcher pitcher) {
+        this.pitcher = pitcher;
     }
 }

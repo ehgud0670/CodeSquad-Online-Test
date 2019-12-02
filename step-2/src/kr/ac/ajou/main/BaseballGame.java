@@ -75,6 +75,7 @@ class BaseballGame {
     private void inputFirstTeam() {
         inputFirstTeamName();
         inputFirstTeamHittersInfo();
+        inputFirstTeamPitcherInfo();
     }
 
     private void inputFirstTeamName() {
@@ -92,6 +93,15 @@ class BaseballGame {
             inputHitterBattingAvr(sc,i,hitter);
             firstTeam.addHitter(hitter);
         }
+    }
+
+    private void inputFirstTeamPitcherInfo() {
+        Scanner sc = new Scanner(System.in);
+        Pitcher pitcher = new Pitcher();
+        GameUtils.printMessageNoLine("투수 정보 입력> ");
+        String pitcherName = sc.next();
+        pitcher.setName(pitcherName);
+        firstTeam.setPitcher(pitcher);
     }
 
     private void inputHitterName(Scanner sc, int i, Hitter hitter) {
