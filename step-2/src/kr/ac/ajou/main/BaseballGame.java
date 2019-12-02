@@ -94,7 +94,7 @@ class BaseballGame {
     private void inputTeamHittersInfo(Team team) {
         Scanner sc = new Scanner(System.in);
         for (int i = 0; i < Constant.NUM_HITTERS; i++) {
-            Hitter hitter = new Hitter(i+1);
+            Hitter hitter = new Hitter(i + 1);
             inputHitterName(sc, i, hitter);
             inputHitterBattingAvr(sc, i, hitter);
             team.addHitter(hitter);
@@ -111,9 +111,15 @@ class BaseballGame {
         System.out.printf("%d번 타자 타율 입력> ", i + 1);
         double battingAvr;
         while (true) {
-            battingAvr = sc.nextDouble();
-            if (battingAvr <= 0.1 || battingAvr >= 0.5) {
-                System.out.println("다시 입력해주세요. 타율 h는 0.1 < h < 0.5");
+            try {
+                battingAvr = sc.nextDouble();
+                if (battingAvr <= 0.1 || battingAvr >= 0.5) {
+                    GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
+                    continue;
+                }
+            } catch (InputMismatchException e) {
+                GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
+                sc = new Scanner(System.in);
                 continue;
             }
             break;
@@ -152,7 +158,7 @@ class BaseballGame {
 
     private void printTeamHittersInfo(Team team) {
         List<Hitter> hitters = team.getHitters();
-        for(int i=0; i<Constant.NUM_HITTERS;i++){
+        for (int i = 0; i < Constant.NUM_HITTERS; i++) {
             Hitter curHitter = hitters.get(i);
             System.out.printf("%d번 %s, %f\n",
                     curHitter.getHitterNum(),
