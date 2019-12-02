@@ -83,6 +83,9 @@ class BaseballGame {
             System.out.printf("%d번 타자 이름 입력> ", i + 1);
             String hitterName = sc.nextLine();
             hitter.setHitterName(hitterName);
+            System.out.printf("%d번 타자 타율 입력> ", i + 1);
+            double battingAvr = sc.nextDouble();
+            hitter.setBattingAvr(battingAvr);
         }
     }
 
