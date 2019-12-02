@@ -1,21 +1,22 @@
 package kr.ac.ajou.main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class Team {
 
     private String teamName;
-    private List<Hitter> hitters;
 
-    Team(){
+    Team() {
         teamName = "";
     }
 
-    public String getTeamName() {
+    String getTeamName() {
         return teamName;
     }
 
-    public void setTeamName(String teamName) {
+    void setTeamName(String teamName) {
         this.teamName = teamName;
     }
+
 }
