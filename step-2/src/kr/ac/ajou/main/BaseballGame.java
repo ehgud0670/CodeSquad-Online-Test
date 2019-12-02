@@ -66,6 +66,7 @@ class BaseballGame {
                 processInputMenu(firstTeam, secondTeam);
                 break;
             case Constant.MENU_OUTPUT:
+                processOutputMenu(firstTeam,secondTeam);
                 break;
             case Constant.MENU_GAME_START:
                 break;
@@ -127,5 +128,15 @@ class BaseballGame {
         String pitcherName = sc.next();
         pitcher.setName(pitcherName);
         team.setPitcher(pitcher);
+    }
+
+    private void processOutputMenu(Team firstTeam, Team secondTeam) {
+        String firstTeamName= firstTeam.getTeamName();
+        String secondTeamName = secondTeam.getTeamName();
+        if("".equals(firstTeamName) && "".equals(secondTeamName)){
+            System.out.println("데이터 입력부터 해주세요.");
+        } else {
+
+        }
     }
 }
