@@ -8,7 +8,11 @@ class BaseballGame {
 
     private void printMenu() {
         printMenuOption();
-        
+        printMenuChoice();
+    }
+
+    private void printMenuChoice() {
+        System.out.print("메뉴선택 (1 - 3) ");
     }
 
     private void printMenuOption() {
