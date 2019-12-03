@@ -101,7 +101,7 @@ class BaseballGame {
         for (int i = 0; i < Constant.NUM_HITTERS; i++) {
             Hitter hitter = new Hitter(i + 1);
             inputHitterName(i, hitter);
-            inputHitterBattingAvr(i, hitter);
+            inputBattingAvr(i, hitter);
             team.addHitter(hitter);
         }
     }
@@ -113,18 +113,23 @@ class BaseballGame {
         hitter.setHitterName(hitterName);
     }
 
-    private void inputHitterBattingAvr(int i, Hitter hitter) {
+    private void inputBattingAvr(int i, Hitter hitter) {
         Scanner sc = new Scanner(System.in);
         System.out.printf("%d번 타자 타율 입력> ", i + 1);
         double battingAvr;
         while (true) {
             try {
-                battingAvr = sc.nextDouble();
+                String battingAvrStr = sc.next();
+                if (battingAvrStr.length() != 5) { //  소수 세째 자리까지 입력
+                    GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
+                    continue;
+                }
+                battingAvr = Double.parseDouble(battingAvrStr);
                 if (battingAvr <= 0.1 || battingAvr >= 0.5) {
                     GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
                     continue;
                 }
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
                 sc = new Scanner(System.in);
                 continue;
