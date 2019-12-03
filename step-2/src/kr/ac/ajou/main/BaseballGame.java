@@ -291,30 +291,33 @@ class BaseballGame {
 
     private void attackByHitter(Team team, Hitter hitter) {
         Random random = new Random();
-        double h = hitter.getBattingAvr();
         System.out.println(hitter.getHitterNum() + "번 " + hitter.getHitterName());
         while (true) {
             if (hitter.isOut() || hitter.isHit()) {
                 hitter.initOutAndHit();
                 break;
             }
-            double d = random.nextDouble();
-            double percentOut = 0.1;
-            double percentHits = h + percentOut;
-            double percentStrike = (1 - h) / 2.0 - 0.05 + percentHits;
-            double percentBall = (1 - h) / 2.0 - 0.05 + percentStrike;
-            if (d <= percentOut) {
-                processOut(team, hitter);
-            } else if (d <= percentHits) {
-                processHits(team, hitter);
-            } else if (d <= percentStrike) {
-                processStrike(team, hitter);
-            } else if (d <= percentBall) {
-                processBall(team, hitter);
-            }
-            printCurSituation(team, hitter);
+            double p = random.nextDouble();
+            processByPercent(p, team, hitter);
         }
-    } //24line
+    }
+
+    private void processByPercent(double p, Team team, Hitter hitter) {
+        double h = hitter.getBattingAvr();
+        double percentOut = 0.1;
+        double percentHits = h + percentOut;
+        double percentStrike = (1 - h) / 2.0 - 0.05 + percentHits;
+        if (p <= percentOut) {
+            processOut(team, hitter);
+        } else if (p <= percentHits) {
+            processHits(team, hitter);
+        } else if (p <= percentStrike) {
+            processStrike(team, hitter);
+        } else {
+            processBall(team, hitter);
+        }
+        printCurSituation(team, hitter);
+    }
 
     private void processOut(Team team, Hitter hitter) {
         GameUtils.printMessageLine(Constant.STR_OUT);
