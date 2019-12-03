@@ -93,7 +93,7 @@ class BaseballGame {
     private void inputTeamName(Team team) {
         Scanner sc = new Scanner(System.in);
         System.out.printf("%d팀의 이름을 입력하세요> ", team.getTeamNum());
-        String teamName = sc.next();
+        String teamName = sc.nextLine();
         team.setTeamName(teamName);
     }
 
@@ -191,6 +191,7 @@ class BaseballGame {
         printTeamName(team);
         printTeamHittersInfo(team);
         printTeamPitcherInfo(team);
+        System.out.println();
     }
 
     private void printTeamName(Team team) {
