@@ -114,30 +114,52 @@ class BaseballGame {
     }
 
     private void inputBattingAvr(int i, Hitter hitter) {
-        Scanner sc = new Scanner(System.in);
         System.out.printf("%d번 타자 타율 입력> ", i + 1);
         double battingAvr;
         while (true) {
             try {
-                String battingAvrStr = sc.next();
-                if (battingAvrStr.length() != 5) { //  소수 세째 자리까지 입력
-                    GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
+                battingAvr = inputBattingAvrNum();
+                if (battingAvr == -1) {
                     continue;
                 }
-                battingAvr = Double.parseDouble(battingAvrStr);
-                if (battingAvr <= 0.1 || battingAvr >= 0.5) {
-                    GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
-                    continue;
-                }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) { // 숫자가 아닌 문자열 입력했을 때
                 GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
-                sc = new Scanner(System.in);
                 continue;
             }
             break;
         }
         hitter.setBattingAvr(battingAvr);
-    } //18line
+    }
+
+    private double inputBattingAvrNum() throws NumberFormatException {
+        Scanner sc = new Scanner(System.in);
+        double battingAvr;
+        String battingAvrStr = sc.next();
+        if (isNotThirdDecimal(battingAvrStr)) {
+            return -1;
+        }
+        battingAvr = Double.parseDouble(battingAvrStr);
+        if (isNotCorrectRange(battingAvr)) {
+            return -1;
+        }
+        return battingAvr;
+    }
+
+    private boolean isNotThirdDecimal(String battingAvrStr) {   //소수 셋째자리까지 입력 안했을 때
+        if (battingAvrStr.length() != 5) {
+            GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isNotCorrectRange(double battingAvr) {      //범위 조건에 안맞는 경우
+        if (battingAvr <= 0.1 || battingAvr >= 0.5) {
+            GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
+            return true;
+        }
+        return false;
+    }
 
     private void inputTeamPitcherInfo(Team team) {
         Scanner sc = new Scanner(System.in);
