@@ -37,24 +37,30 @@ class BaseballGame {
     }
 
     private int selectMenu() {
-        Scanner sc = new Scanner(System.in);
         int menuNum;
         while (true) {
-            try {
-                menuNum = sc.nextInt();
-                if (menuNum != Constant.MENU_INPUT &&
-                        menuNum != Constant.MENU_OUTPUT &&
-                        menuNum != Constant.MENU_GAME_START &&
-                        menuNum != Constant.MENU_GAME_EXIT) {
-                    GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
-                    continue;
-                }
-            } catch (InputMismatchException e) {
-                GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
-                sc = new Scanner(System.in);
+            menuNum = inputMenuNum();
+            if(menuNum == -1){
                 continue;
             }
             break;
+        }
+        return menuNum;
+    }
+
+    private int inputMenuNum() {
+        Scanner sc = new Scanner(System.in);
+        int menuNum;
+        try {
+            menuNum = sc.nextInt();
+            if (menuNum != Constant.MENU_INPUT && menuNum != Constant.MENU_OUTPUT &&
+                    menuNum != Constant.MENU_GAME_START && menuNum != Constant.MENU_GAME_EXIT) {
+                GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
+                return -1;
+            }
+        } catch (InputMismatchException e) {
+            GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
+            return -1;
         }
         return menuNum;
     }
@@ -78,7 +84,7 @@ class BaseballGame {
                 }
             }
         }
-    }
+    } //18line
 
     private void processInputMenu(Team firstTeam, Team secondTeam) {
         inputTeam(firstTeam);
@@ -133,7 +139,7 @@ class BaseballGame {
             break;
         }
         hitter.setBattingAvr(battingAvr);
-    }
+    } //18line
 
     private void inputTeamPitcherInfo(Team team) {
         Scanner sc = new Scanner(System.in);
@@ -186,7 +192,7 @@ class BaseballGame {
 
     private void printGameResult(Team firstTeam, Team secondTeam) {
         GameUtils.printMessageLine(Constant.STR_GAME_OVER);
-        printTeamsVersus(firstTeam,secondTeam);
+        printTeamsVersus(firstTeam, secondTeam);
         printTeamsScore(firstTeam, secondTeam);
         System.out.println();
     }
@@ -237,7 +243,7 @@ class BaseballGame {
             attackByHitter(team, curHitter);
             hitterNum = (hitterNum + 1) % Constant.NUM_HITTERS;
         }
-    }
+    } //17line
 
     private void printTeamAttack(Team team, int i) {
         System.out.println(i + 1 + "회" + team.getTeamOrder() +
@@ -270,7 +276,7 @@ class BaseballGame {
             }
             printCurSituation(team, hitter);
         }
-    }
+    } //24line
 
     private void processOut(Team team, Hitter hitter) {
         GameUtils.printMessageLine(Constant.STR_OUT);
