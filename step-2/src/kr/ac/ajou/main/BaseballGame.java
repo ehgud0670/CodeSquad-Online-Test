@@ -40,7 +40,7 @@ class BaseballGame {
         int menuNum;
         while (true) {
             menuNum = inputMenuNum();
-            if(menuNum == -1){
+            if (menuNum == -1) {
                 continue;
             }
             break;
@@ -66,25 +66,18 @@ class BaseballGame {
     }
 
     private void processByMenu(int menuNum, Team firstTeam, Team secondTeam) {
-        if (menuNum == Constant.MENU_INPUT) {
-            processInputMenu(firstTeam, secondTeam);
-        } else {
-            String firstTeamName = firstTeam.getTeamName();
-            String secondTeamName = secondTeam.getTeamName();
-            if ("".equals(firstTeamName) && "".equals(secondTeamName)) {
-                System.out.println("데이터 입력부터 해주세요.");
-            } else {
-                switch (menuNum) {
-                    case Constant.MENU_OUTPUT:
-                        processOutputMenu(firstTeam, secondTeam);
-                        break;
-                    case Constant.MENU_GAME_START:
-                        processGameStartMenu(firstTeam, secondTeam);
-                        break;
-                }
-            }
+        switch (menuNum) {
+            case Constant.MENU_INPUT:
+                processInputMenu(firstTeam, secondTeam);
+                break;
+            case Constant.MENU_OUTPUT:
+                processOutputMenu(firstTeam, secondTeam);
+                break;
+            case Constant.MENU_GAME_START:
+                processGameStartMenu(firstTeam, secondTeam);
+                break;
         }
-    } //18line
+    }
 
     private void processInputMenu(Team firstTeam, Team secondTeam) {
         inputTeam(firstTeam);
@@ -151,8 +144,20 @@ class BaseballGame {
     }
 
     private void processOutputMenu(Team firstTeam, Team secondTeam) {
-        printTeamInfo(firstTeam);
-        printTeamInfo(secondTeam);
+        if (hasInputData(firstTeam, secondTeam)) {
+            printTeamInfo(firstTeam);
+            printTeamInfo(secondTeam);
+        }
+    }
+
+    private boolean hasInputData(Team firstTeam, Team secondTeam) {
+        String firstTeamName = firstTeam.getTeamName();
+        String secondTeamName = secondTeam.getTeamName();
+        if ("".equals(firstTeamName) && "".equals(secondTeamName)) {
+            System.out.println("데이터 입력부터 해주세요.");
+            return false;
+        }
+        return true;
     }
 
     private void printTeamInfo(Team team) {
@@ -182,12 +187,14 @@ class BaseballGame {
     }
 
     private void processGameStartMenu(Team firstTeam, Team secondTeam) {
-        printGameStart(firstTeam, secondTeam);
-        for (int i = 0; i < Constant.NUM_GAME_TIMES; i++) {
-            attack(firstTeam, i);
-            attack(secondTeam, i);
+        if (hasInputData(firstTeam, secondTeam)) {
+            printGameStart(firstTeam, secondTeam);
+            for (int i = 0; i < Constant.NUM_GAME_TIMES; i++) {
+                attack(firstTeam, i);
+                attack(secondTeam, i);
+            }
+            printGameResult(firstTeam, secondTeam);
         }
-        printGameResult(firstTeam, secondTeam);
     }
 
     private void printGameResult(Team firstTeam, Team secondTeam) {
