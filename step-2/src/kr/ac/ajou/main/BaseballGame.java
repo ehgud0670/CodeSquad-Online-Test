@@ -80,11 +80,11 @@ class BaseballGame {
     }
 
     private void processInputMenu(Team firstTeam, Team secondTeam) {
-        inputTeam(firstTeam);
-        inputTeam(secondTeam);
+        inputTeamInfo(firstTeam);
+        inputTeamInfo(secondTeam);
     }
 
-    private void inputTeam(Team team) {
+    private void inputTeamInfo(Team team) {
         inputTeamName(team);
         inputTeamHittersInfo(team);
         inputTeamPitcherInfo(team);
@@ -265,11 +265,7 @@ class BaseballGame {
         int hitterNum = 0;
         while (true) {
             if (team.isThreeOut()) {
-                int hitsNum = team.getHitsNum();
-                if (hitsNum > 3) {
-                    team.score(hitsNum - 3);
-                    team.initHits();
-                }
+                calculateScore(team);
                 team.initOut();
                 break;
             }
@@ -277,7 +273,15 @@ class BaseballGame {
             attackByHitter(team, curHitter);
             hitterNum = (hitterNum + 1) % Constant.NUM_HITTERS;
         }
-    } //17line
+    }
+
+    private void calculateScore(Team team) {
+        int hitsNum = team.getHitsNum();
+        if (hitsNum > 3) {
+            team.score(hitsNum - 3);
+            team.initHits();
+        }
+    }
 
     private void printTeamAttack(Team team, int i) {
         System.out.println(i + 1 + "회" + team.getTeamOrder() +
