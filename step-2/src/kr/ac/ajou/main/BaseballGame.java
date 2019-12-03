@@ -211,12 +211,16 @@ class BaseballGame {
 
     private void attack(Team team, int i) {
         printTeamAttack(team, i);
-
         List<Hitter> hitters = team.getHitters();
         int hitterNum = 0;
         while (true) {
             if (team.isThreeOut()) {
-                team.initOutNum();
+                int hitsNum = team.getHitsNum();
+                if (hitsNum > 3) {
+                    team.score(hitsNum - 3);
+                    team.initHits();
+                }
+                team.initOut();
                 break;
             }
             Hitter curHitter = hitters.get(hitterNum);
@@ -240,7 +244,6 @@ class BaseballGame {
                 hitter.initOutAndHit();
                 break;
             }
-
             double d = random.nextDouble();
             double percentOut = 0.1;
             double percentHits = h + percentOut;

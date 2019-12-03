@@ -13,6 +13,7 @@ class Team {
     private Pitcher pitcher;
     private int outNum;
     private int hitsNum;
+    private int score;
 
     Team(int teamNum, String teamOrder) {
         this.teamNum = teamNum;
@@ -20,6 +21,18 @@ class Team {
 
         teamName = "";
         hitters = new ArrayList<>(Constant.NUM_HITTERS);
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void score(int score){
+        this.score += score;
     }
 
     int getTeamNum() {
@@ -78,6 +91,10 @@ class Team {
         return outNum == Constant.THREE_OUT;
     }
 
+    public void initOut() {
+        outNum =0;
+    }
+
     public int getHitsNum() {
         return hitsNum;
     }
@@ -90,7 +107,8 @@ class Team {
         hitsNum++;
     }
 
-    public void initOutNum() {
-        outNum =0;
+    public void initHits(){
+        hitsNum = 0;
     }
+
 }
