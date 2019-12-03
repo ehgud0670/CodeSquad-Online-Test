@@ -185,21 +185,22 @@ class BaseballGame {
     }
 
     private void printGameResult(Team firstTeam, Team secondTeam) {
+        GameUtils.printMessageLine(Constant.STR_GAME_OVER);
         String firstTeamName = firstTeam.getTeamName();
-        String secondTeamName= secondTeam.getTeamName();
-
+        String secondTeamName = secondTeam.getTeamName();
         System.out.println(firstTeamName + " VS " + secondTeamName);
+
         int firstTeamHits = firstTeam.getHitsNum();
         int secondTeamHits = secondTeam.getHitsNum();
         System.out.println(firstTeamHits + " : " + secondTeamHits);
-        if(firstTeamHits > secondTeamHits){
+
+        if (firstTeamHits > secondTeamHits) {
             System.out.println(firstTeamName + "  승!");
-        } else if (secondTeamHits > firstTeamHits){
+        } else if (secondTeamHits > firstTeamHits) {
             System.out.println(secondTeamName + " 승!");
         } else {
             System.out.println("무승부");
         }
-        GameUtils.printMessageLine(Constant.STR_GAME_OVER);
         System.out.println();
     }
 
