@@ -113,6 +113,7 @@ class Team {
 
     void hits() {
         curHitsNum++;
+        totalHitsNum++;
     }
 
     void addTotalHitsNum() {

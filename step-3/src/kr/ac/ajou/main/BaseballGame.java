@@ -283,7 +283,7 @@ class BaseballGame {
         while (true) {
             if (team.isThreeOut()) {
                 calculateScore(team);
-                resetHitsNum(team);
+                team.initHits();
                 team.initOut();
                 break;
             }
@@ -291,11 +291,6 @@ class BaseballGame {
             attackByHitter(team, curHitter, user, otherTeam);
             hitterNum = (hitterNum + 1) % Constant.NUM_HITTERS;
         }
-    }
-
-    private void resetHitsNum(Team team) {
-        team.addTotalHitsNum();
-        team.initHits();
     }
 
     private void calculateScore(Team team) {
