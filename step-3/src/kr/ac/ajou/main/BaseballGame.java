@@ -292,15 +292,20 @@ class BaseballGame {
 
     private void attackByHitter(Team team, Hitter hitter) {
         Random random = new Random();
-        System.out.println(hitter.getHitterNum() + "번 " + hitter.getHitterName());
         while (true) {
             if (hitter.isOut() || hitter.isHit()) {
                 hitter.initOutAndHit();
                 break;
             }
+            // 사용자 입력
+            printHitterInfo(hitter);
             double p = random.nextDouble();
             processByPercent(p, team, hitter);
         }
+    }
+
+    private void printHitterInfo(Hitter hitter) {
+        System.out.println(hitter.getHitterNum() + "번 타자" + hitter.getHitterName() + "입니다.");
     }
 
     private void processByPercent(double p, Team team, Hitter hitter) {
