@@ -53,12 +53,12 @@ class BaseballGame {
         int menuNum;
         try {
             menuNum = sc.nextInt();
-            if (menuNum != Constant.MENU_INPUT && menuNum != Constant.MENU_OUTPUT &&
-                    menuNum != Constant.MENU_GAME_START && menuNum != Constant.MENU_GAME_EXIT) {
-                GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
-                return -1;
-            }
         } catch (InputMismatchException e) {
+            GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
+            return -1;
+        }
+        if (menuNum != Constant.MENU_INPUT && menuNum != Constant.MENU_OUTPUT &&
+                menuNum != Constant.MENU_GAME_START && menuNum != Constant.MENU_GAME_EXIT) {
             GameUtils.printMessageNoLine(Constant.STR_REINPUT_MENU);
             return -1;
         }
@@ -119,11 +119,11 @@ class BaseballGame {
         while (true) {
             try {
                 battingAvr = inputBattingAvrNum();
-                if (battingAvr == -1) {
-                    continue;
-                }
             } catch (NumberFormatException e) { // 숫자가 아닌 문자열 입력했을 때
                 GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
+                continue;
+            }
+            if (battingAvr == -1) {
                 continue;
             }
             break;
