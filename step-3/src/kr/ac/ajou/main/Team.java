@@ -10,7 +10,10 @@ class Team {
 
     private List<Hitter> hitters;
     private Pitcher pitcher;
+    private int pitchingNum;
+
     private int outNum;
+    private int strikeOutNum;
     private int hitsNum;
     private int score;
     private int curInningNum;
@@ -21,6 +24,18 @@ class Team {
         teamName = "";
         hitters = new ArrayList<>(Constant.NUM_HITTERS);
         inningScores = new int[Constant.NUM_INNINGS];
+    }
+
+    public int getPitchingNum() {
+        return pitchingNum;
+    }
+
+    public void setPitchingNum(int pitchingNum) {
+        this.pitchingNum = pitchingNum;
+    }
+
+    void pitching() {
+        pitchingNum++;
     }
 
     public int getScore() {
@@ -67,11 +82,11 @@ class Team {
         return pitcher;
     }
 
-    public int getOutNum() {
+    int getOutNum() {
         return outNum;
     }
 
-    public void setOutNum(int outNum) {
+    void setOutNum(int outNum) {
         this.outNum = outNum;
     }
 
@@ -87,39 +102,51 @@ class Team {
         outNum = 0;
     }
 
-    public int getHitsNum() {
+    int getHitsNum() {
         return hitsNum;
     }
 
-    public void setHitsNum(int hitsNum) {
+    void setHitsNum(int hitsNum) {
         this.hitsNum = hitsNum;
     }
 
-    public void hits() {
+    void hits() {
         hitsNum++;
     }
 
-    public void initHits() {
+    void initHits() {
         hitsNum = 0;
     }
 
-    public int getCurInningNum() {
+    int getCurInningNum() {
         return curInningNum;
     }
 
-    public void setCurInningNum(int curInningNum) {
+    void setCurInningNum(int curInningNum) {
         this.curInningNum = curInningNum;
     }
 
-    public int[] getInningScores() {
+    int[] getInningScores() {
         return inningScores;
     }
 
-    public void setInningScores(int[] inningScores) {
+    void setInningScores(int[] inningScores) {
         this.inningScores = inningScores;
     }
 
-    public void setCurInningScore(int score) {
+    void setCurInningScore(int score) {
         this.inningScores[this.curInningNum - 1] = score;
+    }
+
+    int getStrikeOutNum() {
+        return strikeOutNum;
+    }
+
+    void setStrikeOutNum(int strikeOutNum) {
+        this.strikeOutNum = strikeOutNum;
+    }
+
+    void strikeOut() {
+        strikeOutNum++;
     }
 }
