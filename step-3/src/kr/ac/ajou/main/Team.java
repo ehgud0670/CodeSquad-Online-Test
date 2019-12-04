@@ -14,6 +14,7 @@ class Team {
     private int outNum;
     private int hitsNum;
     private int score;
+    private int curInningNum;
 
     Team(int teamNum, String teamOrder) {
         this.teamNum = teamNum;
@@ -111,4 +112,11 @@ class Team {
         hitsNum = 0;
     }
 
+    public int getCurInningNum() {
+        return curInningNum;
+    }
+
+    public void setCurInningNum(int curInningNum) {
+        this.curInningNum = curInningNum;
+    }
 }

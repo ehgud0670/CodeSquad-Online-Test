@@ -10,6 +10,7 @@ class Constant {
     static final int NUM_SECOND_TEAM = 2;
     static final int NUM_HITTERS = 1;
     static final int NUM_GAME_TIMES = 6;
+    static final int NUM_ERROR = -1;
 
     static final int THREE_STRIKE = 3;
     static final int THREE_OUT = 3;

@@ -216,13 +216,20 @@ class BaseballGame {
 
     private void processGameStartMenu(Team firstTeam, Team secondTeam) {
         if (hasInputData(firstTeam, secondTeam)) {
+            User user = new User();
             printGameStart(firstTeam, secondTeam);
             for (int i = 0; i < Constant.NUM_GAME_TIMES; i++) {
-                attack(firstTeam, i);
-                attack(secondTeam, i);
+                setInningNums(firstTeam, secondTeam, i + 1);
+                attack(firstTeam, i, user);
+                attack(secondTeam, i, user);
             }
             printGameResult(firstTeam, secondTeam);
         }
+    }
+
+    private void setInningNums(Team firstTeam, Team secondTeam, int inningNum) {
+        firstTeam.setCurInningNum(inningNum);
+        secondTeam.setCurInningNum(inningNum);
     }
 
     private void printGameResult(Team firstTeam, Team secondTeam) {
@@ -260,8 +267,10 @@ class BaseballGame {
                 secondTeam.getTeamName() + "의 시합을 시작합니다.");
     }
 
-    private void attack(Team team, int i) {
-        printTeamAttack(team, i);
+    private void attack(Team team, int i, User user) {
+        if (isPrintOk(team, user)) {
+            printTeamAttack(team, i);
+        }
         List<Hitter> hitters = team.getHitters();
         int hitterNum = 0;
         while (true) {
@@ -271,7 +280,7 @@ class BaseballGame {
                 break;
             }
             Hitter curHitter = hitters.get(hitterNum);
-            attackByHitter(team, curHitter);
+            attackByHitter(team, curHitter, user);
             hitterNum = (hitterNum + 1) % Constant.NUM_HITTERS;
         }
     }
@@ -290,7 +299,7 @@ class BaseballGame {
                 " 공격");
     }
 
-    private void attackByHitter(Team team, Hitter hitter) {
+    private void attackByHitter(Team team, Hitter hitter, User user) {
         Random random = new Random();
         while (true) {
             if (hitter.isOut() || hitter.isHit()) {
@@ -298,19 +307,34 @@ class BaseballGame {
                 break;
             }
             // 사용자 입력
-            printNoticeForInput();
-            int choice = inputUserChoice();
-            if (choice == -1) {
+            int ret = processUserInput(team, user);
+            if (ret == Constant.NUM_ERROR) {
                 continue;
             }
-            printHitterInfo(hitter);
+            if (isPrintOk(team, user)) {
+                printHitterInfo(hitter);
+            }
             double p = random.nextDouble();
-            processByPercent(p, team, hitter);
+            processByPercent(p, team, hitter, user);
         }
     }
 
-    private void printNoticeForInput() {
-        GameUtils.printMessageNoLine(Constant.STR_USER_INPUT);
+    private boolean isPrintOk(Team team, User user) {
+        int userCurInningNum = user.getCurInningNum();
+        return userCurInningNum == 0 || userCurInningNum < team.getCurInningNum();
+    }
+
+    private int processUserInput(Team team, User user) {
+        int userCurInningNum = user.getCurInningNum();
+        if (userCurInningNum == 0 || userCurInningNum < team.getCurInningNum()) {
+            GameUtils.printMessageNoLine(Constant.STR_USER_INPUT);
+            int choice = inputUserChoice();
+            if (choice == Constant.NUM_ERROR) {
+                return Constant.NUM_ERROR;
+            }
+            user.setCurInningNum(choice);
+        }
+        return 0;
     }
 
     private int inputUserChoice() {
@@ -337,50 +361,60 @@ class BaseballGame {
         System.out.println(hitter.getHitterNum() + "번 타자" + hitter.getHitterName() + "입니다.");
     }
 
-    private void processByPercent(double p, Team team, Hitter hitter) {
+    private void processByPercent(double p, Team team, Hitter hitter, User user) {
         double h = hitter.getBattingAvr();
         double percentOut = 0.1;
         double percentHits = h + percentOut;
         double percentStrike = (1 - h) / 2.0 - 0.05 + percentHits;
         if (p <= percentOut) {
-            processOut(team, hitter);
+            processOut(team, hitter, user);
         } else if (p <= percentHits) {
-            processHits(team, hitter);
+            processHits(team, hitter, user);
         } else if (p <= percentStrike) {
-            processStrike(team, hitter);
+            processStrike(team, hitter, user);
         } else {
-            processBall(team, hitter);
+            processBall(team, hitter, user);
         }
-        printCurSituation(team, hitter);
+        if (isPrintOk(team, user)) {
+            printCurSituation(team, hitter);
+        }
     }
 
-    private void processOut(Team team, Hitter hitter) {
-        GameUtils.printMessageLine(Constant.STR_OUT);
+    private void processOut(Team team, Hitter hitter, User user) {
+        if (isPrintOk(team, user)) {
+            GameUtils.printMessageLine(Constant.STR_OUT);
+        }
         team.out();
         hitter.setOut(true);
         hitter.initStrikeAndBall();
     }
 
-    private void processHits(Team team, Hitter hitter) {
-        GameUtils.printMessageLine(Constant.STR_HITS);
+    private void processHits(Team team, Hitter hitter, User user) {
+        if (isPrintOk(team, user)) {
+            GameUtils.printMessageLine(Constant.STR_HITS);
+        }
         team.hits();
         hitter.setHit(true);
         hitter.initStrikeAndBall();
     }
 
-    private void processStrike(Team team, Hitter hitter) {
-        GameUtils.printMessageLine(Constant.STR_STRIKE);
+    private void processStrike(Team team, Hitter hitter, User user) {
+        if (isPrintOk(team, user)) {
+            GameUtils.printMessageLine(Constant.STR_STRIKE);
+        }
         hitter.strike();
         if (hitter.isThreeStrike()) {
-            processOut(team, hitter);
+            processOut(team, hitter, user);
         }
     }
 
-    private void processBall(Team team, Hitter hitter) {
-        GameUtils.printMessageLine(Constant.STR_BALL);
+    private void processBall(Team team, Hitter hitter, User user) {
+        if (isPrintOk(team, user)) {
+            GameUtils.printMessageLine(Constant.STR_BALL);
+        }
         hitter.ball();
         if (hitter.isFourBall()) {
-            processHits(team, hitter);
+            processHits(team, hitter, user);
         }
     }
 
