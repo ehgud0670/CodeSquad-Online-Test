@@ -300,6 +300,9 @@ class BaseballGame {
             // 사용자 입력
             printNoticeForInput();
             int choice = inputUserChoice();
+            if(choice == -1){
+                continue;
+            }
             printHitterInfo(hitter);
             double p = random.nextDouble();
             processByPercent(p, team, hitter);
@@ -313,10 +316,15 @@ class BaseballGame {
     private int inputUserChoice() {
         Scanner sc = new Scanner(System.in);
         String temp = sc.nextLine();
-        if ("".equals(temp)) {
+        if ("".equals(temp)) { // enter
             return 0;
         } else {
-            return Integer.parseInt(temp);
+            try {
+                return Integer.parseInt(temp);
+            } catch(NumberFormatException e){
+                GameUtils.printMessageLine(Constant.STR_REINPUT);
+                return -1;
+            }
         }
     }
 
