@@ -8,7 +8,7 @@ class Constant {
 
     static final int NUM_FIRST_TEAM = 1;
     static final int NUM_SECOND_TEAM = 2;
-    static final int NUM_HITTERS = 1;
+    static final int NUM_HITTERS = 9;
     static final int NUM_INNINGS = 6;
     static final int NUM_ERROR = -1;
 
