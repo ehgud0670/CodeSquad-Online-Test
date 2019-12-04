@@ -220,8 +220,8 @@ class BaseballGame {
             printGameStart(firstTeam, secondTeam);
             for (int i = 0; i < Constant.NUM_GAME_TIMES; i++) {
                 setInningNums(firstTeam, secondTeam, i + 1);
-                attack(firstTeam, i, user);
-                attack(secondTeam, i, user);
+                attack(firstTeam, i, user, secondTeam);
+                attack(secondTeam, i, user, firstTeam);
             }
             printGameResult(firstTeam, secondTeam);
         }
@@ -267,10 +267,7 @@ class BaseballGame {
                 secondTeam.getTeamName() + "의 시합을 시작합니다.");
     }
 
-    private void attack(Team team, int i, User user) {
-        if (isPrintOk(team, user)) {
-            printTeamAttack(team, i);
-        }
+    private void attack(Team team, int i, User user, Team otherTeam) {
         List<Hitter> hitters = team.getHitters();
         int hitterNum = 0;
         while (true) {
@@ -280,7 +277,7 @@ class BaseballGame {
                 break;
             }
             Hitter curHitter = hitters.get(hitterNum);
-            attackByHitter(team, curHitter, user);
+            attackByHitter(team, curHitter, user, otherTeam);
             hitterNum = (hitterNum + 1) % Constant.NUM_HITTERS;
         }
     }
@@ -293,21 +290,14 @@ class BaseballGame {
         }
     }
 
-    private void printTeamAttack(Team team, int i) {
-        System.out.println(i + 1 + "회" + team.getTeamOrder() +
-                " " + team.getTeamName() +
-                " 공격");
-    }
-
-    private void attackByHitter(Team team, Hitter hitter, User user) {
+    private void attackByHitter(Team team, Hitter hitter, User user, Team otherTeam) {
         Random random = new Random();
         while (true) {
             if (hitter.isOut() || hitter.isHit()) {
                 hitter.initOutAndHit();
                 break;
             }
-            // 사용자 입력
-            int ret = processUserInput(team, user);
+            int ret = processUserInput(team, user);  // 사용자 입력
             if (ret == Constant.NUM_ERROR) {
                 continue;
             }
@@ -316,7 +306,17 @@ class BaseballGame {
             }
             double p = random.nextDouble();
             processByPercent(p, team, hitter, user);
+            if(isPrintOk(team,user)){
+                printBoard(team, otherTeam);
+            }
         }
+    }
+
+    private void printBoard(Team team, Team otherTeam) {
+        System.out.println("+--------------------------------+");
+        System.out.println("|        1 2 3 4 5 6  | TOT      | ");
+        System.out.println("| " + team.getTeamName());
+        System.out.println("| " + otherTeam.getTeamName());
     }
 
     private boolean isPrintOk(Team team, User user) {
