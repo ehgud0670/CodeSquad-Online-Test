@@ -8,8 +8,13 @@ import java.util.Random;
 import java.util.Scanner;
 
 class BaseballGame {
-    private Team firstTeam = new Team(Constant.NUM_FIRST_TEAM);
-    private Team secondTeam = new Team(Constant.NUM_SECOND_TEAM);
+    private Team firstTeam;
+    private Team secondTeam;
+
+    BaseballGame(){
+        firstTeam = new Team(Constant.NUM_FIRST_TEAM);
+        secondTeam = new Team(Constant.NUM_SECOND_TEAM);
+    }
 
     void turnOn() {
         GameUtils.printMessageLine(Constant.STR_GAME_OVERVIEW);
