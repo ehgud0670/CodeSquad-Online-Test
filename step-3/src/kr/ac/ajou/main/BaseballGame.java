@@ -317,21 +317,35 @@ class BaseballGame {
     private void printBoard(Team team, Team otherTeam) {
         System.out.println("+--------------------------------+");
         System.out.println("|        1 2 3 4 5 6  | TOT      | ");
+        System.out.println();
         printTeamScore(team);
         printTeamScore(otherTeam);
         printHitterList(team, otherTeam);
+        printCurHitterCount(team);
+    }
+
+    private void printCurHitterCount(Team team) {
+        Hitter curHitter = team.getHitters().get(team.getCurInningNum() - 1);
+        System.out.println("|   현재 타자                       |");
+        System.out.println("|   " + curHitter.getHitterName() + "                       |");
+        System.out.println("|   S:" + curHitter.getStrikeNum()+"                             |");
+        System.out.println("|   B:" + curHitter.getBallNum()+"                             |");
+        System.out.println("|   O:" + team.getOutNum()+"                             |");
+        System.out.println();
     }
 
     private void printHitterList(Team team, Team otherTeam) {
+        System.out.println();
         System.out.println("|  " + team.getTeamName() + "                  " + otherTeam.getTeamName() + "   |");
         List<Hitter> teamHitters = team.getHitters();
-        List<Hitter> otherTeamHitters = team.getHitters();
+        List<Hitter> otherTeamHitters = otherTeam.getHitters();
         for (int i = 0; i < Constant.NUM_HITTERS; i++) {
             Hitter curHitter = teamHitters.get(i);
             Hitter curOtherHitter = otherTeamHitters.get(i);
-            System.out.print("| " + curHitter.getHitterNum() +"." + curHitter.getHitterName());
-            System.out.println("               " + curOtherHitter.getHitterNum() +"." + curOtherHitter.getHitterName() + "  |");
+            System.out.print("| " + curHitter.getHitterNum() + "." + curHitter.getHitterName());
+            System.out.println("               " + curOtherHitter.getHitterNum() + "." + curOtherHitter.getHitterName() + "  |");
         }
+        System.out.println();
     }
 
     private void printTeamScore(Team team) {
@@ -401,7 +415,7 @@ class BaseballGame {
             processBall(team, hitter, user);
         }
         if (isPrintOk(team, user)) {
-            printCurSituation(team, hitter);
+            printCurCount(team, hitter);
         }
     }
 
@@ -443,7 +457,7 @@ class BaseballGame {
         }
     }
 
-    private void printCurSituation(Team team, Hitter hitter) {
+    private void printCurCount(Team team, Hitter hitter) {
         System.out.printf("%dS %dB %dO\n", hitter.getStrikeNum(), hitter.getBallNum(), team.getOutNum());
         System.out.println();
     }
