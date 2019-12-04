@@ -14,12 +14,13 @@ class Team {
 
     private int outNum;
     private int strikeOutNum;
-    private int hitsNum;
+    private int curHitsNum;
+    private int totalHitsNum;
     private int score;
     private int curInningNum;
     private int[] inningScores;
 
-    Team(int teamNum, String teamOrder) {
+    Team(int teamNum) {
         this.teamNum = teamNum;
         teamName = "";
         hitters = new ArrayList<>(Constant.NUM_HITTERS);
@@ -102,20 +103,28 @@ class Team {
         outNum = 0;
     }
 
-    int getHitsNum() {
-        return hitsNum;
+    int getCurHitsNum() {
+        return curHitsNum;
     }
 
-    void setHitsNum(int hitsNum) {
-        this.hitsNum = hitsNum;
+    void setCurHitsNum(int curHitsNum) {
+        this.curHitsNum = curHitsNum;
     }
 
     void hits() {
-        hitsNum++;
+        curHitsNum++;
+    }
+
+    void addTotalHitsNum() {
+        totalHitsNum += curHitsNum;
+    }
+
+    public int getTotalHitsNum() {
+        return totalHitsNum;
     }
 
     void initHits() {
-        hitsNum = 0;
+        curHitsNum = 0;
     }
 
     int getCurInningNum() {

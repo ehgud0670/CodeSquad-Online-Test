@@ -8,7 +8,7 @@ class Constant {
 
     static final int NUM_FIRST_TEAM = 1;
     static final int NUM_SECOND_TEAM = 2;
-    static final int NUM_HITTERS = 1;
+    static final int NUM_HITTERS = 9;
     static final int NUM_INNINGS = 6;
     static final int NUM_ERROR = -1;
 
@@ -18,8 +18,6 @@ class Constant {
 
     static final String STR_GAME_OVERVIEW = "신나는 야구시합";
     static final String STR_MENU_CHOICE = "메뉴선택 (1 - 4) ";
-    static final String STR_TOP_ORDER = "초";
-    static final String STR_BOTTOM_ORDER = "말";
     static final String STR_REINPUT_MENU = "메뉴를 다시 입력해주세요 \n( 1- 데이터 입력 , 2- 데이터 출력 , 3- 시합시작, 4- 게임 나가기 ) ";
     static final String STR_REINPUT_BATTING_AVR = "다시 입력해주세요. 타율 h는 0.1 < h < 0.5, 소수 세째 자리까지 입력";
     static final String STR_REINPUT = "잘못 입력하셨습니다. 다시 입력해주세요.";

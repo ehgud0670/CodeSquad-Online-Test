@@ -10,8 +10,8 @@ import java.util.Scanner;
 class BaseballGame {
     void turnOn() {
         GameUtils.printMessageLine(Constant.STR_GAME_OVERVIEW);
-        Team firstTeam = new Team(Constant.NUM_FIRST_TEAM, Constant.STR_TOP_ORDER);
-        Team secondTeam = new Team(Constant.NUM_SECOND_TEAM, Constant.STR_BOTTOM_ORDER);
+        Team firstTeam = new Team(Constant.NUM_FIRST_TEAM);
+        Team secondTeam = new Team(Constant.NUM_SECOND_TEAM);
         while (true) {
             printMenu();
             int menuNum = selectMenu();
@@ -283,6 +283,7 @@ class BaseballGame {
         while (true) {
             if (team.isThreeOut()) {
                 calculateScore(team);
+                resetHitsNum(team);
                 team.initOut();
                 break;
             }
@@ -292,13 +293,17 @@ class BaseballGame {
         }
     }
 
+    private void resetHitsNum(Team team) {
+        team.addTotalHitsNum();
+        team.initHits();
+    }
+
     private void calculateScore(Team team) {
-        int hitsNum = team.getHitsNum();
+        int hitsNum = team.getCurHitsNum();
         if (hitsNum > 3) {
             int curScore = hitsNum - 3;
             team.setCurInningScore(curScore);
             team.addTotalScore(curScore);
-            team.initHits();
         }
     }
 
@@ -391,9 +396,9 @@ class BaseballGame {
 
     private void printTeamsHitsNum(Team team, Team otherTeam) {
         System.out.print("| ");
-        System.out.print("안타: " + team.getHitsNum());
+        System.out.print("안타: " + team.getTotalHitsNum());
         System.out.print("                  ");
-        System.out.print("안타: " + otherTeam.getHitsNum());
+        System.out.print("안타: " + otherTeam.getTotalHitsNum());
         System.out.println("| ");
     }
 
