@@ -11,7 +11,7 @@ class BaseballGame {
     private Team firstTeam;
     private Team secondTeam;
 
-    BaseballGame(){
+    BaseballGame() {
         firstTeam = new Team(Constant.NUM_FIRST_TEAM);
         secondTeam = new Team(Constant.NUM_SECOND_TEAM);
     }
@@ -72,16 +72,14 @@ class BaseballGame {
     }
 
     private void processByMenu(int menuNum) {
-        switch (menuNum) {
-            case Constant.MENU_INPUT:
-                processInputMenu();
-                break;
-            case Constant.MENU_OUTPUT:
+        if (menuNum == Constant.MENU_INPUT) {
+            processInputMenu();
+        } else if (hasInputData(firstTeam, secondTeam)) {
+            if (menuNum == Constant.MENU_OUTPUT) {
                 processOutputMenu();
-                break;
-            case Constant.MENU_GAME_START:
+            } else if (menuNum == Constant.MENU_GAME_START) {
                 processGameStartMenu();
-                break;
+            }
         }
     }
 
@@ -125,11 +123,11 @@ class BaseballGame {
         while (true) {
             try {
                 battingAvr = inputBattingAvrNum();
-                if (battingAvr == -1) {
-                    continue;
-                }
             } catch (NumberFormatException e) { // 숫자가 아닌 문자열 입력했을 때
                 GameUtils.printMessageLine(Constant.STR_REINPUT_BATTING_AVR);
+                continue;
+            }
+            if (battingAvr == -1) {
                 continue;
             }
             break;
@@ -177,10 +175,9 @@ class BaseballGame {
     }
 
     private void processOutputMenu() {
-        if (hasInputData(firstTeam, secondTeam)) {
-            printTeamInfo(firstTeam);
-            printTeamInfo(secondTeam);
-        }
+        printTeamInfo(firstTeam);
+        printTeamInfo(secondTeam);
+
     }
 
     private boolean hasInputData(Team firstTeam, Team secondTeam) {
@@ -221,23 +218,22 @@ class BaseballGame {
     }
 
     private void processGameStartMenu() {
-        if (hasInputData(firstTeam, secondTeam)) {
-            User user = new User();
-            printGameStart(firstTeam, secondTeam);
-            for (int i = 0; i < Constant.NUM_INNINGS; i++) {
-                setInningNums(firstTeam, secondTeam, i + 1);
-                attack(firstTeam, user, secondTeam);
-                if(isWinBySecondTeam(firstTeam,secondTeam)) {
-                    break;
-                }
-                attack(secondTeam, user, firstTeam);
+        User user = new User();
+        printGameStart(firstTeam, secondTeam);
+        for (int i = 0; i < Constant.NUM_INNINGS; i++) {
+            setInningNums(firstTeam, secondTeam, i + 1);
+            attack(firstTeam, user, secondTeam);
+            if (isWinBySecondTeam(firstTeam, secondTeam)) {
+                break;
             }
-            printGameResult(firstTeam, secondTeam);
+            attack(secondTeam, user, firstTeam);
         }
+        printGameResult(firstTeam, secondTeam);
+
     }
 
     private boolean isWinBySecondTeam(Team firstTeam, Team secondTeam) {
-        if(secondTeam.getCurInningNum() == 6){
+        if (secondTeam.getCurInningNum() == 6) {
             return firstTeam.getScore() < secondTeam.getScore();
         }
         return false;
@@ -416,12 +412,12 @@ class BaseballGame {
         if ("".equals(input)) { // enter
             return 0;
         } else {
+            int num = Integer.parseInt(input);
+            if (num > 6 || num < 1) {
+                GameUtils.printMessageLine(Constant.STR_REINPUT);
+                return -1;
+            }
             try {
-                int num = Integer.parseInt(input);
-                if (num > 6 || num < 1) {
-                    GameUtils.printMessageLine(Constant.STR_REINPUT);
-                    return -1;
-                }
                 return Integer.parseInt(input);
             } catch (NumberFormatException e) {
                 GameUtils.printMessageLine(Constant.STR_REINPUT);
