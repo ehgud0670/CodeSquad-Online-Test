@@ -218,10 +218,10 @@ class BaseballGame {
         if (hasInputData(firstTeam, secondTeam)) {
             User user = new User();
             printGameStart(firstTeam, secondTeam);
-            for (int i = 0; i < Constant.NUM_GAME_TIMES; i++) {
+            for (int i = 0; i < Constant.NUM_INNINGS; i++) {
                 setInningNums(firstTeam, secondTeam, i + 1);
-                attack(firstTeam, i, user, secondTeam);
-                attack(secondTeam, i, user, firstTeam);
+                attack(firstTeam, user, secondTeam);
+                attack(secondTeam, user, firstTeam);
             }
             printGameResult(firstTeam, secondTeam);
         }
@@ -267,7 +267,7 @@ class BaseballGame {
                 secondTeam.getTeamName() + "의 시합을 시작합니다.");
     }
 
-    private void attack(Team team, int i, User user, Team otherTeam) {
+    private void attack(Team team, User user, Team otherTeam) {
         List<Hitter> hitters = team.getHitters();
         int hitterNum = 0;
         while (true) {
@@ -285,7 +285,9 @@ class BaseballGame {
     private void calculateScore(Team team) {
         int hitsNum = team.getHitsNum();
         if (hitsNum > 3) {
-            team.score(hitsNum - 3);
+            int curScore = hitsNum -3;
+            team.setCurInningScore(curScore);
+            team.addTotalScore(curScore);
             team.initHits();
         }
     }
@@ -315,8 +317,18 @@ class BaseballGame {
     private void printBoard(Team team, Team otherTeam) {
         System.out.println("+--------------------------------+");
         System.out.println("|        1 2 3 4 5 6  | TOT      | ");
-        System.out.println("| " + team.getTeamName());
-        System.out.println("| " + otherTeam.getTeamName());
+        printTeamScore(team);
+        printTeamScore(otherTeam);
+    }
+
+    private void printTeamScore(Team team) {
+        System.out.print("| " + team.getTeamName() + "  ");
+        int[] teamScores = team.getInningScores();
+        for(int i=0; i<Constant.NUM_INNINGS; i++){
+            System.out.print(teamScores[i] + " ");
+        }
+        System.out.print("  |  ");
+        System.out.println(team.getScore() + "       |");
     }
 
     private boolean isPrintOk(Team team, User user) {

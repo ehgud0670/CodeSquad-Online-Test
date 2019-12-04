@@ -14,11 +14,13 @@ class Team {
     private int hitsNum;
     private int score;
     private int curInningNum;
+    private int[] inningScores;
 
     Team(int teamNum, String teamOrder) {
         this.teamNum = teamNum;
         teamName = "";
         hitters = new ArrayList<>(Constant.NUM_HITTERS);
+        inningScores = new int[Constant.NUM_INNINGS];
     }
 
     public int getScore() {
@@ -29,7 +31,7 @@ class Team {
         this.score = score;
     }
 
-    public void score(int score){
+    public void addTotalScore(int score) {
         this.score += score;
     }
 
@@ -73,7 +75,7 @@ class Team {
         this.outNum = outNum;
     }
 
-    void out(){
+    void out() {
         outNum++;
     }
 
@@ -82,7 +84,7 @@ class Team {
     }
 
     public void initOut() {
-        outNum =0;
+        outNum = 0;
     }
 
     public int getHitsNum() {
@@ -97,7 +99,7 @@ class Team {
         hitsNum++;
     }
 
-    public void initHits(){
+    public void initHits() {
         hitsNum = 0;
     }
 
@@ -107,5 +109,17 @@ class Team {
 
     public void setCurInningNum(int curInningNum) {
         this.curInningNum = curInningNum;
+    }
+
+    public int[] getInningScores() {
+        return inningScores;
+    }
+
+    public void setInningScores(int[] inningScores) {
+        this.inningScores = inningScores;
+    }
+
+    public void setCurInningScore(int score) {
+        this.inningScores[this.curInningNum - 1] = score;
     }
 }
