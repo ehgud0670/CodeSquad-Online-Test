@@ -298,15 +298,26 @@ class BaseballGame {
                 break;
             }
             // 사용자 입력
-            printUserInput();
+            printNoticeForInput();
+            int choice = inputUserChoice();
             printHitterInfo(hitter);
             double p = random.nextDouble();
             processByPercent(p, team, hitter);
         }
     }
 
-    private void printUserInput() {
+    private void printNoticeForInput() {
         GameUtils.printMessageNoLine(Constant.STR_USER_INPUT);
+    }
+
+    private int inputUserChoice() {
+        Scanner sc = new Scanner(System.in);
+        String temp = sc.nextLine();
+        if ("".equals(temp)) {
+            return 0;
+        } else {
+            return Integer.parseInt(temp);
+        }
     }
 
     private void printHitterInfo(Hitter hitter) {
