@@ -8,17 +8,18 @@ import java.util.Random;
 import java.util.Scanner;
 
 class BaseballGame {
+    private Team firstTeam = new Team(Constant.NUM_FIRST_TEAM);
+    private Team secondTeam = new Team(Constant.NUM_SECOND_TEAM);
+
     void turnOn() {
         GameUtils.printMessageLine(Constant.STR_GAME_OVERVIEW);
-        Team firstTeam = new Team(Constant.NUM_FIRST_TEAM);
-        Team secondTeam = new Team(Constant.NUM_SECOND_TEAM);
         while (true) {
             printMenu();
             int menuNum = selectMenu();
             if (menuNum == Constant.MENU_GAME_EXIT) {
                 break;
             }
-            processByMenu(menuNum, firstTeam, secondTeam);
+            processByMenu(menuNum);
         }
         GameUtils.printMessageLine(Constant.STR_GAME_EXIT);
     }
@@ -65,21 +66,21 @@ class BaseballGame {
         return menuNum;
     }
 
-    private void processByMenu(int menuNum, Team firstTeam, Team secondTeam) {
+    private void processByMenu(int menuNum) {
         switch (menuNum) {
             case Constant.MENU_INPUT:
-                processInputMenu(firstTeam, secondTeam);
+                processInputMenu();
                 break;
             case Constant.MENU_OUTPUT:
-                processOutputMenu(firstTeam, secondTeam);
+                processOutputMenu();
                 break;
             case Constant.MENU_GAME_START:
-                processGameStartMenu(firstTeam, secondTeam);
+                processGameStartMenu();
                 break;
         }
     }
 
-    private void processInputMenu(Team firstTeam, Team secondTeam) {
+    private void processInputMenu() {
         inputTeamInfo(firstTeam);
         inputTeamInfo(secondTeam);
     }
@@ -170,7 +171,7 @@ class BaseballGame {
         team.setPitcher(pitcher);
     }
 
-    private void processOutputMenu(Team firstTeam, Team secondTeam) {
+    private void processOutputMenu() {
         if (hasInputData(firstTeam, secondTeam)) {
             printTeamInfo(firstTeam);
             printTeamInfo(secondTeam);
@@ -214,7 +215,7 @@ class BaseballGame {
         System.out.println("투수 : " + pitcher.getName());
     }
 
-    private void processGameStartMenu(Team firstTeam, Team secondTeam) {
+    private void processGameStartMenu() {
         if (hasInputData(firstTeam, secondTeam)) {
             User user = new User();
             printGameStart(firstTeam, secondTeam);
@@ -309,22 +310,22 @@ class BaseballGame {
             otherTeam.pitching(); // 상대팀 투구수 올리기
             processByPercent(p, team, hitter, user);
             if (isPrintOk(team, user)) {
-                printBoard(team, otherTeam, hitter);
+                printBoard(team, hitter);
             }
         }
     }
 
-    private void printBoard(Team team, Team otherTeam,Hitter hitter) {
+    private void printBoard(Team team, Hitter hitter) {
         System.out.println("+--------------------------------+");
         System.out.println("|        1 2 3 4 5 6  | TOT      | ");
-        printTeamScore(team);
-        printTeamScore(otherTeam);
-        printHitterList(team, otherTeam);
+        printTeamScore(firstTeam);
+        printTeamScore(secondTeam);
+        printHitterList();
         printHitterCount(team, hitter);
         System.out.println("|                               |");
-        printTeamsPitching(team, otherTeam);
-        printTeamsStrikeOutNum(team, otherTeam);
-        printTeamsHitsNum(team,otherTeam);
+        printTeamsPitching();
+        printTeamsStrikeOutNum();
+        printTeamsHitsNum();
         System.out.println("|                               |");
         System.out.println("+--------------------------------+");
     }
@@ -339,11 +340,11 @@ class BaseballGame {
         System.out.println(team.getScore() + "       |");
     }
 
-    private void printHitterList(Team team, Team otherTeam) {
+    private void printHitterList() {
         System.out.println("|                               |");
-        System.out.println("|  " + team.getTeamName() + "                  " + otherTeam.getTeamName() + "   |");
-        List<Hitter> teamHitters = team.getHitters();
-        List<Hitter> otherTeamHitters = otherTeam.getHitters();
+        System.out.println("|  " + firstTeam.getTeamName() + "                  " + secondTeam.getTeamName() + "   |");
+        List<Hitter> teamHitters = firstTeam.getHitters();
+        List<Hitter> otherTeamHitters = secondTeam.getHitters();
         for (int i = 0; i < Constant.NUM_HITTERS; i++) {
             Hitter curHitter = teamHitters.get(i);
             Hitter curOtherHitter = otherTeamHitters.get(i);
@@ -362,27 +363,27 @@ class BaseballGame {
     }
 
 
-    private void printTeamsPitching(Team team, Team otherTeam) {
+    private void printTeamsPitching() {
         System.out.print("| ");
-        System.out.print("투구: " + team.getPitchingNum());
+        System.out.print("투구: " + firstTeam.getPitchingNum());
         System.out.print("                  ");
-        System.out.print("투구: " + otherTeam.getPitchingNum());
+        System.out.print("투구: " + secondTeam.getPitchingNum());
         System.out.println("| ");
     }
 
-    private void printTeamsStrikeOutNum(Team team, Team otherTeam) {
+    private void printTeamsStrikeOutNum() {
         System.out.print("| ");
-        System.out.print("삼진: " + team.getStrikeOutNum());
+        System.out.print("삼진: " + firstTeam.getStrikeOutNum());
         System.out.print("                  ");
-        System.out.print("삼진: " + otherTeam.getStrikeOutNum());
+        System.out.print("삼진: " + secondTeam.getStrikeOutNum());
         System.out.println("| ");
     }
 
-    private void printTeamsHitsNum(Team team, Team otherTeam) {
+    private void printTeamsHitsNum() {
         System.out.print("| ");
-        System.out.print("안타: " + team.getTotalHitsNum());
+        System.out.print("안타: " + firstTeam.getTotalHitsNum());
         System.out.print("                  ");
-        System.out.print("안타: " + otherTeam.getTotalHitsNum());
+        System.out.print("안타: " + secondTeam.getTotalHitsNum());
         System.out.println("| ");
     }
 
