@@ -298,10 +298,15 @@ class BaseballGame {
                 break;
             }
             // 사용자 입력
+            printUserInput();
             printHitterInfo(hitter);
             double p = random.nextDouble();
             processByPercent(p, team, hitter);
         }
+    }
+
+    private void printUserInput() {
+        GameUtils.printMessageNoLine(Constant.STR_USER_INPUT);
     }
 
     private void printHitterInfo(Hitter hitter) {

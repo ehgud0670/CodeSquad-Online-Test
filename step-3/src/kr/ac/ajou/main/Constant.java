@@ -23,6 +23,7 @@ class Constant {
     static final String STR_REINPUT_BATTING_AVR = "다시 입력해주세요. 타율 h는 0.1 < h < 0.5, 소수 세째 자리까지 입력";
     static final String STR_GAME_EXIT = "게임을 나갔습니다";
     static final String STR_GAME_OVER = "GAME OVER";
+    static final String STR_USER_INPUT = "다음 투구 보기(enter) or 스킵하고 X회말 후 투구보기(숫자+enter) ?";
 
     public static final String STR_STRIKE = "스트라이크!";
     public static final String STR_BALL = "볼!";
