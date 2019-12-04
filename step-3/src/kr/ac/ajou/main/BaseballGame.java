@@ -310,21 +310,23 @@ class BaseballGame {
             otherTeam.pitching(); // 상대팀 투구수 올리기
             processByPercent(p, team, hitter, user);
             if (isPrintOk(team, user)) {
-                printBoard(team, otherTeam);
+                printBoard(team, otherTeam, hitter);
             }
         }
     }
 
-    private void printBoard(Team team, Team otherTeam) {
+    private void printBoard(Team team, Team otherTeam,Hitter hitter) {
         System.out.println("+--------------------------------+");
         System.out.println("|        1 2 3 4 5 6  | TOT      | ");
         printTeamScore(team);
         printTeamScore(otherTeam);
         printHitterList(team, otherTeam);
-        printCurHitterCount(team);
+        printHitterCount(team, hitter);
+        System.out.println("|                               |");
         printTeamsPitching(team, otherTeam);
         printTeamsStrikeOutNum(team, otherTeam);
         printTeamsHitsNum(team,otherTeam);
+        System.out.println("|                               |");
         System.out.println("+--------------------------------+");
     }
 
@@ -339,6 +341,7 @@ class BaseballGame {
     }
 
     private void printHitterList(Team team, Team otherTeam) {
+        System.out.println("|                               |");
         System.out.println("|  " + team.getTeamName() + "                  " + otherTeam.getTeamName() + "   |");
         List<Hitter> teamHitters = team.getHitters();
         List<Hitter> otherTeamHitters = otherTeam.getHitters();
@@ -350,12 +353,12 @@ class BaseballGame {
         }
     }
 
-    private void printCurHitterCount(Team team) {
-        Hitter curHitter = team.getHitters().get(team.getCurInningNum() - 1);
+    private void printHitterCount(Team team, Hitter hitter) {
+        System.out.println("|                               |");
         System.out.println("|   현재 타자                       |");
-        System.out.println("|   " + curHitter.getHitterName() + "                       |");
-        System.out.println("|   S:" + curHitter.getStrikeNum() + "                             |");
-        System.out.println("|   B:" + curHitter.getBallNum() + "                             |");
+        System.out.println("|   " + hitter.getHitterName() + "                       |");
+        System.out.println("|   S:" + hitter.getStrikeNum() + "                             |");
+        System.out.println("|   B:" + hitter.getBallNum() + "                             |");
         System.out.println("|   O:" + team.getOutNum() + "                             |");
     }
 
@@ -423,7 +426,7 @@ class BaseballGame {
     }
 
     private void printHitterInfo(Hitter hitter) {
-        System.out.println(hitter.getHitterNum() + "번 타자" + hitter.getHitterName() + "입니다.");
+        System.out.println(hitter.getHitterNum() + "번 타자 " + hitter.getHitterName() + "입니다.");
     }
 
     private void processByPercent(double p, Team team, Hitter hitter, User user) {
