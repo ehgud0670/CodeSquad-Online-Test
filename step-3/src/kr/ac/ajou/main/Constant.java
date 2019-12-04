@@ -15,6 +15,7 @@ class Constant {
     static final int THREE_STRIKE = 3;
     static final int THREE_OUT = 3;
     static final int FOUR_BALL = 4;
+    static final int FOUR_HITS = 4;
 
     static final String STR_GAME_OVERVIEW = "신나는 야구시합";
     static final String STR_MENU_CHOICE = "메뉴선택 (1 - 4) ";

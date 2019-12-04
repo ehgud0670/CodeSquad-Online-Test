@@ -47,8 +47,8 @@ class Team {
         this.score = score;
     }
 
-    public void addTotalScore(int score) {
-        this.score += score;
+    public void totalScore() {
+        this.score++;
     }
 
     int getTeamNum() {
@@ -99,10 +99,6 @@ class Team {
         return outNum == Constant.THREE_OUT;
     }
 
-    public void initOut() {
-        outNum = 0;
-    }
-
     int getCurHitsNum() {
         return curHitsNum;
     }
@@ -124,10 +120,6 @@ class Team {
         return totalHitsNum;
     }
 
-    void initHits() {
-        curHitsNum = 0;
-    }
-
     int getCurInningNum() {
         return curInningNum;
     }
@@ -144,8 +136,8 @@ class Team {
         this.inningScores = inningScores;
     }
 
-    void setCurInningScore(int score) {
-        this.inningScores[this.curInningNum - 1] = score;
+    void curInningScore() {
+        this.inningScores[this.curInningNum - 1]++;
     }
 
     int getStrikeOutNum() {
@@ -158,5 +150,10 @@ class Team {
 
     void strikeOut() {
         strikeOutNum++;
+    }
+
+    public void initHitsAndOut() {
+        curHitsNum = 0;
+        outNum = 0;
     }
 }

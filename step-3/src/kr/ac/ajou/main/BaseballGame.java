@@ -282,23 +282,12 @@ class BaseballGame {
         int hitterNum = 0;
         while (true) {
             if (team.isThreeOut()) {
-                calculateScore(team);
-                team.initHits();
-                team.initOut();
+                team.initHitsAndOut();
                 break;
             }
             Hitter curHitter = hitters.get(hitterNum);
             attackByHitter(team, curHitter, user, otherTeam);
             hitterNum = (hitterNum + 1) % Constant.NUM_HITTERS;
-        }
-    }
-
-    private void calculateScore(Team team) {
-        int hitsNum = team.getCurHitsNum();
-        if (hitsNum > 3) {
-            int curScore = hitsNum - 3;
-            team.setCurInningScore(curScore);
-            team.addTotalScore(curScore);
         }
     }
 
@@ -473,7 +462,16 @@ class BaseballGame {
         }
         team.hits();
         hitter.setHit(true);
+        calculateScore(team);
         hitter.initStrikeAndBall();
+    }
+
+    private void calculateScore(Team team) {
+        int hitsNum = team.getCurHitsNum();
+        if (hitsNum >= Constant.FOUR_HITS) {
+            team.curInningScore();
+            team.totalScore();
+        }
     }
 
     private void processStrike(Team team, Hitter hitter, User user) {
