@@ -285,7 +285,7 @@ class BaseballGame {
     private void calculateScore(Team team) {
         int hitsNum = team.getHitsNum();
         if (hitsNum > 3) {
-            int curScore = hitsNum -3;
+            int curScore = hitsNum - 3;
             team.setCurInningScore(curScore);
             team.addTotalScore(curScore);
             team.initHits();
@@ -308,7 +308,7 @@ class BaseballGame {
             }
             double p = random.nextDouble();
             processByPercent(p, team, hitter, user);
-            if(isPrintOk(team,user)){
+            if (isPrintOk(team, user)) {
                 printBoard(team, otherTeam);
             }
         }
@@ -319,12 +319,25 @@ class BaseballGame {
         System.out.println("|        1 2 3 4 5 6  | TOT      | ");
         printTeamScore(team);
         printTeamScore(otherTeam);
+        printHitterList(team, otherTeam);
+    }
+
+    private void printHitterList(Team team, Team otherTeam) {
+        System.out.println("|  " + team.getTeamName() + "                  " + otherTeam.getTeamName() + "   |");
+        List<Hitter> teamHitters = team.getHitters();
+        List<Hitter> otherTeamHitters = team.getHitters();
+        for (int i = 0; i < Constant.NUM_HITTERS; i++) {
+            Hitter curHitter = teamHitters.get(i);
+            Hitter curOtherHitter = otherTeamHitters.get(i);
+            System.out.print("| " + curHitter.getHitterNum() +"." + curHitter.getHitterName());
+            System.out.println("               " + curOtherHitter.getHitterNum() +"." + curOtherHitter.getHitterName() + "  |");
+        }
     }
 
     private void printTeamScore(Team team) {
         System.out.print("| " + team.getTeamName() + "  ");
         int[] teamScores = team.getInningScores();
-        for(int i=0; i<Constant.NUM_INNINGS; i++){
+        for (int i = 0; i < Constant.NUM_INNINGS; i++) {
             System.out.print(teamScores[i] + " ");
         }
         System.out.print("  |  ");
