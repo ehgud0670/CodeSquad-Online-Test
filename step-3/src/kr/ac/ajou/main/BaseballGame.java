@@ -300,7 +300,7 @@ class BaseballGame {
             // 사용자 입력
             printNoticeForInput();
             int choice = inputUserChoice();
-            if(choice == -1){
+            if (choice == -1) {
                 continue;
             }
             printHitterInfo(hitter);
@@ -315,13 +315,18 @@ class BaseballGame {
 
     private int inputUserChoice() {
         Scanner sc = new Scanner(System.in);
-        String temp = sc.nextLine();
-        if ("".equals(temp)) { // enter
+        String input = sc.nextLine();
+        if ("".equals(input)) { // enter
             return 0;
         } else {
             try {
-                return Integer.parseInt(temp);
-            } catch(NumberFormatException e){
+                int num = Integer.parseInt(input);
+                if (num > 6 || num < 1) {
+                    GameUtils.printMessageLine(Constant.STR_REINPUT);
+                    return -1;
+                }
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
                 GameUtils.printMessageLine(Constant.STR_REINPUT);
                 return -1;
             }
