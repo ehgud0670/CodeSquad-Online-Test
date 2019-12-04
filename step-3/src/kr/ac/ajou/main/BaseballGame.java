@@ -221,10 +221,20 @@ class BaseballGame {
             for (int i = 0; i < Constant.NUM_INNINGS; i++) {
                 setInningNums(firstTeam, secondTeam, i + 1);
                 attack(firstTeam, user, secondTeam);
+                if(isWinBySecondTeam(firstTeam,secondTeam)) {
+                    break;
+                }
                 attack(secondTeam, user, firstTeam);
             }
             printGameResult(firstTeam, secondTeam);
         }
+    }
+
+    private boolean isWinBySecondTeam(Team firstTeam, Team secondTeam) {
+        if(secondTeam.getCurInningNum() == 6){
+            return firstTeam.getScore() < secondTeam.getScore();
+        }
+        return false;
     }
 
     private void setInningNums(Team firstTeam, Team secondTeam, int inningNum) {
