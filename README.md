@@ -1,4 +1,5 @@
-# CodeSquad-Online-Test
+# 숫자 야구 게임 - Java 
+## Code-Squad Online Test
 
 ## Git Commit Message 
 * Add는 기능을 추가했을 때 Modified는 추가한 기능을 수정했을 때로 구분하여 커밋 메시지를 작성하였습니다. 감사합니다!
